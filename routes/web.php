@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WialonController;
 use App\HTTP\Controllers\UsersController;
 use App\Http\Controllers\DashboardController;
+use  App\Http\Controllers\ResultatController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +25,7 @@ Route::post('/',  [UsersController::class, 'show'])->name('register');
 
 Route::get('/dashboard', [DashboardController::class,"index"])->name("dashboard");
 Route::get('/dashboard-detail', [DashboardController::class,"show"])->name("dashboard-detail");
+Route::get('/maps', [DashboardController::class,"showMap"])->name("Map");
 
 //route du couceurcontroller
 
@@ -33,6 +35,12 @@ Route::post('/coureurs/create',[CoureurController::class,'store'])->name('coureu
 Route::get('/coureurs/{coureur}/edit', [CoureurController::class, 'edit'])->name('coureurs.edit');
 Route::put('/coureurs/{coureur}/update', [CoureurController::class, 'update'])->name('coureurs.update');
 Route::delete('/coureurs/{coureur}', [CoureurController::class, 'destroy'])->name('coureurs.destroy');
+
+// Affiche le top 8
+Route::get('/Coureurs/top-final',[ResultatController::class,'showFinalResult'])->name('coureurs.top-final');
+// Affiche le laps Resultat
+Route::get('/Resultat-laps',[ResultatController::class,'showLapsResult'])->name('lapsResult');
+
 
 
 
@@ -69,13 +77,8 @@ Route::get('/resultat_special', function () {
 Route::get('/resultat_final', function () {
     return view('resultat_final');
 });
-Route::get('/resultat_laps', function () {
-    return view('resultat_laps');
-});
 
-Route::get('/top_final', function () {
-    return view('top_final');
-});
+
 Route::get('/creer_pilote', function () {
     return view('creer_pilote');
 });
@@ -87,33 +90,6 @@ Route::get('liste_finale', function () {
     return view('liste_finale');
 });
 
-Route::get('/map', function () {
-    return view('map');
-});
-
-//route navbar
-Route::get('/profil', function () {
-    return view('profil');
-})->name('dashboard');
-
-route::get('/top_final', function () {
-    return view('top_final');
-})->name('top_final');
-
-Route::get('/creer_pilote', function () {
-    return view('creer_pilote');
-})->name('creer_pilote');
-
-Route::get('/resultat_laps', function () {
-    return view('resultat_laps');
-
-})->name('resultat_laps');
-
-
-Route::get('/map', function () {
-    return view('map');
-})->name('map');
-
 Route::get('/resultat_special', function () {
     return view('resultat_special');
 })->name('resultat_special');
@@ -121,7 +97,7 @@ Route::get('/resultat_special', function () {
 
 //welcome
 Route::get('/', function () {
-    return view('welcome');
+    return view('Auth.login');
 });
 
 

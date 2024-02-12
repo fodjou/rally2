@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> Map</title>
+    <title> Dashboard_laps</title>
 
     <style>
         .ellipse {
@@ -81,7 +81,7 @@
             left: 50px;
             top: 125px;
             width: 1440px;
-            height: 550px;
+            height: 600px;
             background: #FFFFFF 0 0 no-repeat padding-box;
             box-shadow: 0 3px 6px #00000029;
             border: 1px solid #707070;
@@ -124,54 +124,46 @@
             display: inline-block;
             margin-left: 7px;
         }
+
+        #close {
+            position: relative;
+            top: 1px;
+            left: 10px;
+            text-align: left;
+            font: normal normal normal 25px/37px Roboto;
+            color: #FFFFFF;
+            opacity: 1;
+        }
+
         table {
             border-collapse: collapse;
             position: relative;
-            top: -15px;
-            left: 1000px;
-            width: 400px;
-            border: 1px solid #707070;
-            opacity: 1;
-            border-radius: 10px;
-
-
-
-
-
+            top: -30px;
+            left: 35px;
+            width: 1380px;
         }
 
         th {
             background-color: #70707029;
             opacity: 1;
             border-spacing: 0;
+            text-align: center;
+            min-width: 170px;
             height: 30px;
-            text-align: left;
-            padding-left: 35px;
-            min-width: 100px;
-            font: normal normal bold 17px Roboto;
-            letter-spacing: 0;
-            color: #585859;
         }
 
         tr {
-            border-bottom: 1px solid rgba(128, 128, 128, 25%);
-            font: normal normal normal 20px Roboto;
-            letter-spacing: 0;
-            color: #585859;
-        }
-
-        td:not(:has(.ellipse)) {
             text-align: center;
+            border-bottom: 1px solid rgba(128, 128, 128, 25%);
         }
 
         .ellipse {
-            text-align: left;
             width: 55px;
             height: 55px;
             display: inline-block;
             position: relative;
             top: 4px;
-            left: -10px;
+            bottom: 0;
             border-radius: 50%;
             background: transparent 0 0 no-repeat padding-box;
             border: 1px solid black;
@@ -180,41 +172,42 @@
         }
 
         .ellipse1 {
-            left: 35px;
             z-index: 2;
         }
 
         .ellipse2 {
-            left: 10px;
+            right: 25px;
             z-index: 1;
         }
 
-        .first {
-            width: 65px;
-            height: 55px;
-            display: inline-block;
-            position: relative;
-            top: 4px;
-            bottom: 0;
-            opacity: 1;
-        }
-
-        .rang {
-            position: relative;
-            left: 20%;
-            width: 50px;
-            height: 50px;
+        .actions {
             display: flex;
+            flex-direction: row;
             justify-content: center;
-            font: normal normal bold 40px/48px Roboto;
-            letter-spacing: 0;
+            align-items: center;
         }
 
-        .name {
-            text-align: center;
+        .action {
+            width: 180px;
+            height: 35px;
+            top: 15px;
+            display: flex;
             position: relative;
-            left: 20px;
-            bottom: 15px;
+            box-shadow: 0 3px 6px #00000029;
+            border-radius: 21px;
+            opacity: 1;
+            justify-content: center;
+            align-items: center;
+            color: #FFFFFF;
+        }
+
+        .action1 {
+            background: #585859 0 0 no-repeat padding-box;
+        }
+
+        .action2 {
+            right: -40px;
+            background: #8C8C8C 0 0 no-repeat padding-box;
         }
     </style>
 </head>
@@ -222,7 +215,7 @@
 <div id="main">
     <img id="bin" alt="" src="{{ asset('images/menu.png') }}">
     <img id="logo" alt="" src="{{ asset('images/logo1.png') }}">
-    <h4 class="title" id="title"> / resultat realtime  </h4>
+    <h4 class="title" id="title"> / Dashboard </h4>
 
     <div id="main1"></div>
 
@@ -230,7 +223,7 @@
         <div id="subtitle">
             <div id="left">
                 <img id="sublogo" class="logo" alt="" src="{{ asset('images/Groupe 480.png') }}">
-                <p class="title" id="title2"> Resultat realtime </p>
+                <p class="title" id="title2"> Liste des pilotes </p>
             </div>
             <div id="right">
                 <div class="small-box" id="refresh-box"></div>
@@ -238,85 +231,49 @@
             </div>
         </div>
 
+
         <table>
+            <thead>
+            <th></th>
+            <th>Pilotes</th>
+            <th>Marques</th>
+            <th>Véhicules</th>
+            <th>Actions</th>
+            </thead>
+            @foreach($coureurs as $coureur)
 
+                <tr>
+                    <td>
+                        <img
+                            class="ellipse ellipse1"
+                            src="{{ asset('images/'.$coureur->image) }}"
+                        >
 
-            <tbody>
-            <tr>
-                <td>
-                    <div class="rang">1</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Olivier Ramdam</span></td>
+                        <img
+                            class="ellipse ellipse2"
+                            src="{{ asset('images/'.$coureur->logo) }}"
+                        >
+                    </td>
+                    <td>{{ $coureur->nom_conducteur }}</td>
+                    <td>{{ $coureur->nom_vehicule }}</td>
+                    <td>{{ $coureur->marque }}</td>
+                    <td class="actions">
+                        <div class="action action1">Début Course</div>
+                        <div class="action action2">Fin Course</div>
+                        <button class="btn btn-danger" onclick="window.location.href='/delete/{{ $coureur->id }}'">delete</button>
+                    </td>
 
-            </tr>
+                    <td>
+                        <a href="{{ route('coureurs.show', $coureur->id) }}">Voir</a>
+                        <a href="{{ route('coureurs.edit', $coureur->id) }}">Modifier</a>
+                    </td>
 
-            <tr>
-                <td>
-                    <div class="rang">2</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Christelle Wamou</span></td>
-            </tr>
+                </tr>
 
-            <tr>
-                <td>
-                    <div class="rang">3</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Cober</span></td>
+            @endforeach
 
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="rang">4</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Brian Epee</span></td>
-
-            </tr>
-            <tr>
-                <td>
-                    <div class="rang">5</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Tinen</span></td>
-
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="rang">6</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Tinen </span></td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="rang">7</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Tinen </span></td>
-
-            </tr>
-            </tbody>
         </table>
+
     </div>
 
 </div>

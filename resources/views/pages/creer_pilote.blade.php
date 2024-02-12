@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> creer_pilote</title>
+@extends('layouts.app')
+
+@section('title', 'Resultat final')
+
+@section('css')
     <style>
         #main{
             position: absolute;
@@ -319,58 +318,16 @@
 
 
     </style>
-</head>
-<body>
+    @endsection
+
+    @section('content')
+
 <div id="main">
-    <img id="bin" alt="" src="{{ asset('images/menu.png') }}">
+  
 
-    <div id="main1"></div>
-
-    <div id="slidbar" class="container">
-        <header>
-            <img id=profil alt="" src="{{ asset('images/profil_picture.png') }}">
-            <h2 class="ti"> Bienvenue</h2>
-            <h2 class="ti"><strong>Yven Michel</strong></h2>
-            <div id="logout">
-                <hr>
-                <img id="11" class="logo" alt="" src="{{ asset('images/sign_out.png') }}">
-                <h4>Deconnexion!</h4>
-            </div>
-
-        </header>
-        <div class="menu-item" onclick="location.href='{{ route('dashboard') }}'">
-            <img id="dashboard" class="logo" alt="" src="{{ asset('images/dashboard.png') }}">
-            <h3>Dashboard</h3>
-        </div>
-
-        <div class="menu-item" onclick="location.href='{{ route('top_final') }}'">
-            <img id="final" class="logo" alt="" src="{{ asset('images/pilot_list.png') }}">
-            <h3>Resultat final</h3>
-        </div>
-        <div class="menu-item green-bg" onclick="location.href='{{ route('creer_pilote') }}'">
-            <img id="pilote" class="logo" alt="" src="{{ asset('images/list_user.png') }}">
-            <h3>Creer un pilote</h3>
-        </div>
-        <div class="menu-item" onclick="location.href='{{ route('resultat_laps') }}'">
-            <img id="lap" class="logo" alt=""  src="{{ asset('images/lap_result.png') }}">
-            <h3>resultat lap</h3>
-        </div>
-        <div class="menu-item" onclick="location.href='{{ route('map') }}'">
-            <img id="time" class="logo" alt="" src="{{ asset('images/compteur_vitesse.png') }}">
-            <h3>real Time</h3>
-        </div>
-        <div class="menu-item" onclick="location.href='{{ route('resultat_special') }}'">
-            <img id="special"class="logo" alt="" src="{{ asset('images/special_result.png') }}">
-            <h3>Resultat Special</h3>
-        </div>
-
-        <div id="down">
-            <img id="5" alt="" src="{{ asset('images/logo1.png') }}">
-
-
-        </div>
-
-    </div>
+    @include('layouts.components.logo')
+   
+    @include('layouts.components.sidebar')
 
     <div id="box">
         <div id="subtitle">
@@ -403,8 +360,8 @@
             <label for="marque_vehicule">Marque de véhicule</label>
             <input type="text" id="marque_vehicule" name="marque_vehicule" placeholder="Marque de véhicule">
 
-            <label for="logo">Logo</label>
-            <input type="file" id="photo_pilote" name="logo" placeholder="Logo">
+            <label for="logo-A">Logo</label>
+            <input type="file" id="logo-A" name="logo-A" placeholder="Logo">
 
             <label for="immatriculation">Immatriculation</label>
             <input type="text" id="immatriculation" name="immatriculation" placeholder="Immatriculation">
@@ -418,5 +375,6 @@
         </div>
 
     </div>
-    </div>
-</body>
+</div>
+
+@endsection
