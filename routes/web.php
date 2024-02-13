@@ -49,46 +49,12 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
-
-
-
-/// Route d'affichage du formulaire
-
-///
-///
-//Route::get('/', 'UserController@showRegisterForm')->name('register.form');
-//
-//// Route de traitement du formulaire
-//Route::post('/', 'UserController@register')->name('register');
-//
-//// Route de login existante
-//Route::post('/', 'UserController@login');
-
-//// Routes protégées après enregistrement
-//Route::group(['middleware' => 'auth'], function(){
-//
-//    Route::get('/dashboard', function(){
-//        return 'Dashboard';
-//    });
-//
-//});
-//
-
-
-
 // Route de gestion des coureurs
 
 Route::get('/resultat_special', function () {
     return view('resultat_special');
 });
-Route::get('/resultat_final', function () {
-    return view('resultat_final');
-});
 
-
-Route::get('/creer_pilote', function () {
-    return view('creer_pilote');
-});
 Route::get('/pilote_creer', function () {
     return view('pilote_creer');
 });
@@ -96,23 +62,9 @@ Route::get('/pilote_creer', function () {
 Route::get('liste_finale', function () {
     return view('liste_finale');
 });
-
 Route::get('/resultat_special', function () {
     return view('resultat_special');
 })->name('resultat_special');
-
-
-//welcome
-Route::get('/', function () {
-    return view('Auth.login');
-});
-
-
-
-
-
-
-
 
 
 
