@@ -10,8 +10,6 @@ class DashboardController extends Controller
     public function index(){
         $coureurs = Coureur::paginate(5);
         return view("dashboard",compact("coureurs"));
-        $coureurs = Coureur::paginate(5);
-        return view("dashboard",compact("coureurs"));
     }
     /*
      * @show methode de details du dashboard
@@ -26,8 +24,5 @@ class DashboardController extends Controller
         return view('pages.map');
     }
 
-    public function showMap(){
-        return view('pages.map');
-    }
 
 }
