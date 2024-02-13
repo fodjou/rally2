@@ -1,10 +1,14 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title> resultat_laps</title>
+@extends('layouts.app')
+
+@section('title', 'Map')
+
+@section('css')
+
     <style>
+        .ellipse {
+            text-align: left;
+        }
+
         #main {
             position: absolute;
             top: -9px;
@@ -73,9 +77,10 @@
 
         #box {
             position: absolute;
-            left: 50px;
-            top: 125px;
-            width: 1440px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 90%;
             height: 600px;
             background: #FFFFFF 0 0 no-repeat padding-box;
             box-shadow: 0 3px 6px #00000029;
@@ -89,7 +94,7 @@
             position: relative;
             top: -40px;
             left: 35px;
-            width: 97%;
+            width: 94%;
             height: 69px;
             background: #B9A955 0 0 no-repeat;
             border-radius: 20px;
@@ -119,82 +124,15 @@
             display: inline-block;
             margin-left: 7px;
         }
-
-        #close {
-            position: relative;
-            top: 1px;
-            left: 10px;
-            text-align: left;
-            font: normal normal normal 25px/37px Roboto;
-            color: #FFFFFF;
-            opacity: 1;
-        }
-
-        #actions {
-            display: flex;
-            flex-direction: row;
-            position: relative;
-            top: -25px;
-            left: 35px;
-            width: 95%;
-            border-bottom: 1px solid rgba(128, 128, 128, 25%);
-        }
-
-        #action-left{
-            width: auto;
-            display: flex;
-            flex-direction: row;
-        }
-
-        #action-right{
-            margin-left: 7px;
-            width: 46%;
-            text-align: end;
-        }
-
-        #action{
-            font: normal normal bold 18px Roboto;
-            letter-spacing: 0;
-            color: #585859;
-            opacity: 1;
-            position: relative;
-            right: 35px;
-        }
-
-        #lap1{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 350px;
-            height: 40px;
-            background: #585859 0 0 no-repeat padding-box;
-            opacity: 1;
-            font: normal normal normal 17px Roboto;
-            letter-spacing: 0;
-            color: #FFFFFF;
-        }
-
-        #lap2{
-            margin-left: 10px;
-            width: 350px;
-            height: 40px;
-            background: #707070 0 0 no-repeat padding-box;
-            text-align: center;
-            font: normal normal normal 17px Roboto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            letter-spacing: 0;
-            color: #FFFFFF;
-            opacity: 1;
-        }
-
         table {
             border-collapse: collapse;
             position: relative;
             top: -15px;
-            left: 35px;
-            width: 1380px;
+            right: 100px;
+            width: 400px;
+            border: 1px solid #707070;
+            opacity: 1;
+            border-radius: 10px;
         }
 
         th {
@@ -274,20 +212,22 @@
             bottom: 15px;
         }
     </style>
-</head>
-<body>
+@endsection
+
+@section('content')
 <div id="main">
     <img id="bin" alt="" src="{{ asset('images/menu.png') }}">
     <img id="logo" alt="" src="{{ asset('images/logo1.png') }}">
-    <h4 class="title" id="title"> / Resultat Lap </h4>
+    <h4 class="title" id="title"> / resultat realtime  </h4>
 
     <div id="main1"></div>
+    @include('layouts.components.sidebar')
 
     <div id="box">
         <div id="subtitle">
             <div id="left">
                 <img id="sublogo" class="logo" alt="" src="{{ asset('images/Groupe 480.png') }}">
-                <p class="title" id="title2"> Evolution des laps </p>
+                <p class="title" id="title2"> Resultat realtime </p>
             </div>
             <div id="right">
                 <div class="small-box" id="refresh-box"></div>
@@ -295,26 +235,8 @@
             </div>
         </div>
 
-        <div id="actions">
-            <div id="action-left">
-                <div id="lap1"> Evolution des laps 1</div>
-                <div id="lap2"> Evolution des laps 2</div>
-            </div>
-            <div id="action-right">
-                <span id="action"> Actions </span>
-            </div>
-        </div>
-
         <table>
-            <thead>
-            <th>Rang</th>
-            <th>Pilotes</th>
-            <th>Marques</th>
-            <th>Véhicules</th>
-            <th>Total Kilométrage</th>
-            <th>Heure Total Parcours</th>
-            <th></th>
-            </thead>
+
 
             <tbody>
             <tr>
@@ -325,10 +247,7 @@
                     <div class="ellipse ellipse1"></div>
                     <div class="ellipse ellipse2"></div>
                     <span class="name">Olivier Ramdam</span></td>
-                <td> OPEL</td>
-                <td> LT 705454-X</td>
-                <td style="color: #79A07D">105 Km</td>
-                <td style="color: #79A07D">4h 45min 5s</td>
+
             </tr>
 
             <tr>
@@ -339,10 +258,6 @@
                     <div class="ellipse ellipse1"></div>
                     <div class="ellipse ellipse2"></div>
                     <span class="name">Christelle Wamou</span></td>
-                <td> BUGATI</td>
-                <td> LT 705454-X</td>
-                <td>125 Km</td>
-                <td>5h 45min 5s</td>
             </tr>
 
             <tr>
@@ -353,10 +268,7 @@
                     <div class="ellipse ellipse1"></div>
                     <div class="ellipse ellipse2"></div>
                     <span class="name">Rian Cober</span></td>
-                <td> WOLVAGEN</td>
-                <td> LT 705454-X</td>
-                <td>140Km</td>
-                <td>5h 50min 5s</td>
+
             </tr>
 
             <tr>
@@ -367,12 +279,8 @@
                     <div class="ellipse ellipse1"></div>
                     <div class="ellipse ellipse2"></div>
                     <span class="name">Brian Epee</span></td>
-                <td> BMW</td>
-                <td> LT 705454-X</td>
-                <td>105 Km</td>
-                <td>5h 45min 5s</td>
-            </tr>
 
+            </tr>
             <tr>
                 <td>
                     <div class="rang">5</div>
@@ -381,10 +289,7 @@
                     <div class="ellipse ellipse1"></div>
                     <div class="ellipse ellipse2"></div>
                     <span class="name">Rian Tinen</span></td>
-                <td> PEUGEOT</td>
-                <td> LT 705454-X</td>
-                <td>105 Km</td>
-                <td>5h 45min 5s</td>
+
             </tr>
 
             <tr>
@@ -395,10 +300,6 @@
                     <div class="ellipse ellipse1"></div>
                     <div class="ellipse ellipse2"></div>
                     <span class="name">Rian Tinen </span></td>
-                <td> PEUGEOT</td>
-                <td> LT 705454-X</td>
-                <td>105 Km</td>
-                <td>5h 45min 5s</td>
             </tr>
 
             <tr>
@@ -409,15 +310,11 @@
                     <div class="ellipse ellipse1"></div>
                     <div class="ellipse ellipse2"></div>
                     <span class="name">Rian Tinen </span></td>
-                <td> PEUGEOT</td>
-                <td> LT 705454-X</td>
-                <td>105 Km</td>
-                <td>5h 45min 5s</td>
+
             </tr>
             </tbody>
         </table>
     </div>
 
 </div>
-</body>
-</html>
+@endsection

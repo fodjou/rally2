@@ -8,8 +8,8 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
-        $coureurs = Coureur::paginate(8);
-        return view("profil",compact("coureurs"));
+        $coureurs = Coureur::paginate(5);
+        return view("dashboard",compact("coureurs"));
     }
     /*
      * @show methode de details du dashboard
@@ -17,6 +17,11 @@ class DashboardController extends Controller
     public function show(){
         $coureurs = Coureur::all();
         // Transmettre les coureurs à la vue en tant que variable $coureurs
-        return view('dashboard', compact('coureurs'));
+        return view('dashboard-detail', compact('coureurs'));
     }
+
+    public function showMap(){
+        return view('pages.map');
+    }
+
 }

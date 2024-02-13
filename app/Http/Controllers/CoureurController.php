@@ -14,43 +14,42 @@ class CoureurController extends Controller
         return view('creer_pilote');
     }
     public function create (){
-        return view ('creer_pilote');
+        return view ('pages.creer_pilote');
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nom_vehicule' => 'required',
-            'nom_conducteur' => 'required',
-            'marque' => 'required',
-            'matricule' => 'required',
-            'image' => 'required|image|max:2048',
-            'sponsors' => 'required',
-            'logo' => 'nullable|image|max:2048',
+            'nom_pilote' => 'required',
+            'photo_pilote' => 'required|image|max:2048',
+            'sponsor' => 'required',
+            'marque_vehicule' => 'required',
+            'logo-A' => 'nullable|image|max:2048',
+            'immatriculation' => 'required',
         ]);
+        $imageName = $request->file('photo_pilote')->getClientOriginalName();
+        $request->file('photo_pilote')->move(public_path('coureur'), $imageName);
 
-        $imageName = $request->file('image')->getClientOriginalName();
-        $request->file('image')->move(public_path('coureur'), $imageName);
-        if ($request->hasFile('logo')) {
-            $logoName = $request->file('logo')->getClientOriginalName();
-            $request->file('logo')->move(public_path('logo'), $logoName);
+        if ($request->hasFile('logo-A')) {
+            $logoName = $request->file('logo-A')->getClientOriginalName();
+            $request->file('logo-A')->move(public_path('logo-A'), $logoName);
         } else {
             $logoName = null;
         }
 
         try {
             Coureur::create([
-                'nom_vehicule' => $request->input('nom_vehicule'),
-                'nom_conducteur' => $request->input('nom_conducteur'),
-                'marque' => $request->input('marque'),
-                'matricule' => $request->input('matricule'),
+                'nom_conducteur' => $request->input('nom_pilote'),
+                'nom_vehicule'=> 'Ferrari',
                 'image' => $imageName,
-                'sponsors' => $request->input('sponsors'),
+                'sponsors' => $request->input('sponsor'),
+                'marque' => $request->input('marque_vehicule'),
                 'logo' => $logoName,
+                'matricule' => $request->input('immatriculation'),
             ]);
         } catch (\Exception $e) {
             dd($e); // Ajout du bloc de débogage pour afficher l'erreur complète
-            return redirect()->back()->withInput()->withErrors(['error' => 'Une erreur sest produite lors de lenregistrement du coureur. Veuillez réessayer.']);
+            return redirect()->back()->withInput()->withErrors(['error' => 'Une erreur s\'est produite lors de l\'enregistrement du coureur. Veuillez réessayer.']);
         }
 
         return redirect()->route('dashboard')->with('message', 'Coureur créé avec succès');

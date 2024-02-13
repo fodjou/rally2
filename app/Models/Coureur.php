@@ -21,7 +21,7 @@ class Coureur extends Model
         'matricule',
         'image',
         'sponsors',
-        'logo',
+        'logo-A',
 
     ];
 
