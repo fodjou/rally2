@@ -6,6 +6,7 @@ use App\Http\Controllers\WialonController;
 use App\HTTP\Controllers\UsersController;
 use App\Http\Controllers\DashboardController;
 use  App\Http\Controllers\ResultatController;
+use  App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,28 +19,34 @@ use  App\Http\Controllers\ResultatController;
 */
 
 //Authentification Users
-// Route de traitement du formulaire
-Route::post('/',  [UsersController::class, 'show'])->name('register');
+//
+Route::get('/', [AuthController::class, 'showLoginForm'])->name('login'); // Afficher le formulaire de connexion
+Route::post('/', [AuthController::class, 'login']); // Gérer la connexion de l'utilisateur
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register'); // Afficher le formulaire d'inscription
+Route::post('/register', [AuthController::class, 'register']); // Gérer l'inscription de l'utilisateur
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // Déconnecter l'utilisateur
 
-// Route Dashboard
 
-Route::get('/dashboard', [DashboardController::class,"index"])->name("dashboard");
-Route::get('/dashboard-detail', [DashboardController::class,"show"])->name("dashboard-detail");
-Route::get('/maps', [DashboardController::class,"showMap"])->name("Map");
 
-//route du couceurcontroller
+Route::middleware(['auth'])->group(function () {
+    // Route Dashboard
+    Route::get('/dashboard', [DashboardController::class, "index"])->name("dashboard");
+    Route::get('/dashboard-detail', [DashboardController::class, "show"])->name("dashboard-detail");
+    Route::get('/maps', [DashboardController::class, "showMap"])->name("Map");
 
-Route::get('/coureurs/create',[CoureurController::class , 'create'])->name('coureurs.create');
-Route::get('/coureurs/{coureur}', [CoureurController::class, 'show'])->name('coureurs.show');
-Route::post('/coureurs/create',[CoureurController::class,'store'])->name('coureurs.store');
-Route::get('/coureurs/{coureur}/edit', [CoureurController::class, 'edit'])->name('coureurs.edit');
-Route::put('/coureurs/{coureur}/update', [CoureurController::class, 'update'])->name('coureurs.update');
-Route::delete('/coureurs/{coureur}', [CoureurController::class, 'destroy'])->name('coureurs.destroy');
+    // Routes du CoureurController
+    Route::get('/coureurs/create', [CoureurController::class, 'create'])->name('coureurs.create');
+    Route::get('/coureurs/{coureur}', [CoureurController::class, 'show'])->name('coureurs.show');
+    Route::post('/coureurs/create', [CoureurController::class, 'store'])->name('coureurs.store');
+    Route::get('/coureurs/{coureur}/edit', [CoureurController::class, 'edit'])->name('coureurs.edit');
+    Route::put('/coureurs/{coureur}/update', [CoureurController::class, 'update'])->name('coureurs.update');
+    Route::delete('/coureurs/{coureur}', [CoureurController::class, 'destroy'])->name('coureurs.destroy');
 
-// Affiche le top 8
-Route::get('/Coureurs/top-final',[ResultatController::class,'showFinalResult'])->name('coureurs.top-final');
-// Affiche le laps Resultat
-Route::get('/Resultat-laps',[ResultatController::class,'showLapsResult'])->name('lapsResult');
+    // Affiche le top 8
+    Route::get('/Coureurs/top-final', [ResultatController::class, 'showFinalResult'])->name('coureurs.top-final');
+    // Affiche le laps Resultat
+    Route::get('/Resultat-laps', [ResultatController::class, 'showLapsResult'])->name('lapsResult');
+});
 
 
 

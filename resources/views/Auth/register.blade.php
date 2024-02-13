@@ -98,20 +98,19 @@
 
 <div class="form-container">
     <img src="{{ asset('images/logo1.png') }}" alt="Logo">
-    <h1>Connexion</h1>
-    <form action="/" method="POST">
+    <h1>Inscription</h1>
+    <form action="/register" method="POST">
         @csrf
 
-        <label for="name">Nom d'utilisateur:</label>
+        <label for="name">Nom:</label>
         <input type="text" id="name" name="name" required>
 
         <label for="password">Mot de passe:</label>
         <input type="password" id="password" name="password" required>
 
-        <button type="submit">Connexion</button>
+        <button type="submit">S'inscrire</button>
     </form>
-
-    <p>Vous n'avez pas de compte ? <a href="{{ route('register') }}">Inscrivez-vous ici</a></p>
+    <p>Déjà inscrit ? <a href="/">Connectez-vous ici</a></p>
 </div>
 
 </div>

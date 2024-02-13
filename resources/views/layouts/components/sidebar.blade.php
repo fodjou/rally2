@@ -3,11 +3,17 @@
             <img id=profil alt="" src="{{ asset('images/profil_picture.png') }}">
             <h2 class="ti"> Bienvenue</h2>
             <h2 class="ti"><strong>Yven Michel</strong></h2>
-            <div id="logout">
+            <div id="logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <hr>
                 <img id="11" class="logo" alt="" src="{{ asset('images/sign_out.png') }}">
                 <h4>Deconnexion!</h4>
             </div>
+
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+
+            
 
         </header>
         <div class="menu-item green-bg" onclick="location.href='{{ route('dashboard') }}'">

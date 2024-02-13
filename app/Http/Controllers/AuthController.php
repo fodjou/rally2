@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class UsersController
+class AuthController extends Controller
 {
     public function register(Request $request)
     {
@@ -43,45 +43,22 @@ class UsersController
             }
         }
 
-//    public function getAllUsers()
-//    {
-//
-//        $user = User::all();
-//
-//        return response()->json($user);
-//    }
+        public function showLoginForm()
+        {
+            return view('Auth.login');
+        }
+        public function showRegistrationForm()
+        {
+            return view('Auth.register');
+        }
 
-//    public function update(Request $request, $id)
-//    {
-//
-//        $user = User::find($id);
-//
-//        $this->validate($request, [
-//            'name' => 'required'
-//        ]);
-//
-//        $user->name = $request->name;
-//
-//        if ($request->password) {
-//            $user->password = bcrypt($request->password);
-//        }
-//
-//        $user->save();
-//
-//        return response()->json($user);
-//
-//    }
-//
-//    public function delete($id)
-//    {
-//
-//        // Trouver et supprimer l'utilisateur
-//        User::findOrFail($id)->delete();
-//
-//        // Retourner une réponse
-//        return redirect('/')->with('message', 'utilisateur suprime');
-//
-//    }
-
-
+        public function logout(Request $request)
+        {
+            Auth::logout();
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+    
+            return redirect('/');
+        }
+    
 }
