@@ -14,14 +14,12 @@
             opacity: 1;
             z-index: 99;
         }
-
         #bin{
             width: 2%;
             position: absolute;
             top: 30px;
             left: 200px;
         }
-
         #logo{
             width: 5%;
             position: absolute;
@@ -29,7 +27,6 @@
             left: 70px;
             filter: invert(100%);
         }
-
         #sublogo{
             width: 3.5%;
             position: absolute;
@@ -37,7 +34,6 @@
             left: 30px;
             display: inline-block;
         }
-
         .title{
             text-align: left;
             font: normal normal normal 18px/34px Roboto;
@@ -65,17 +61,18 @@
             left: 300px;
             width: 70%;
             height: 450px;
-            background: transparent  url({{ asset('images/background1.png') }})0 0 no-repeat padding-box;
+            background: transparent  linear-gradient(178deg, #548F74 0%, #FFD892E0 62%, #FFF2DBF5 73%, #FFFFFF 100%) 0 0 no-repeat padding-box;
             background-size: 100%;
             opacity: 1;
         }
 
         #box{
             position: absolute;
-            left: 230px;
-            top: 125px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             width: 1300px;
-            height: 700px;
+            height: 600px;
             background: #FFFFFF 0 0 no-repeat padding-box;
             box-shadow: 0 3px 6px #00000029;
             border: 1px solid #707070;
@@ -169,7 +166,6 @@
         h2.ti + h2.ti {
             margin-top: -12px;
         }
-
         img[id="final"] {
             width: 12%;
             position: relative;
@@ -195,22 +191,17 @@
             position: relative;
             left:35px;
         }
-
         h3 {
-
             top: 40px;
             margin-left: 45px;
         }
-
         #menu {
-
             background-color: #00000029;
             border-radius: 25px;
             margin-bottom: 25px;
             max-height: 35px;
             width: 200px;
             height: 50px;
-
         }
         #down img {
             position: relative;
@@ -232,7 +223,6 @@
             width: 200px;
             height: 260px;
             margin: 15px;
-
         }
         .menu-item:hover {
             border: 1px solid blue;
@@ -240,18 +230,15 @@
         .menu-item.green-bg {
             background-color: green; /* Modifier la couleur selon votre choix */
         }
-
         form {
             display: flex;
             flex-direction: column;
             align-items: center;
             margin-right: 600px;
         }
-
         label {
             display: none; /* Pour masquer les labels */
         }
-
         input[type="file"] {
             width: 300px;
             padding: 10px;
@@ -260,7 +247,6 @@
             border: 1px solid #ccc;
             position: relative;
         }
-
         input[type="file"]::file-selector-button {
             position: absolute;
             bottom: 0;
@@ -269,13 +255,10 @@
             background-color: #fff;
             padding: 15px 50px;
             border: 1px solid #ccc;
-
         }
-
         input[type="file"]:hover::file-selector-button {
             background-color: #eee;
         }
-
         input[type="text"],
         input[type="file"],
         input[type="submit"] {
@@ -285,24 +268,18 @@
             border-radius: 20px;
             border: 1px solid #ccc;
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-
         }
-
-
         input[type="submit"] {
             background-color: #548F74;
             color: white;
             cursor: pointer;
         }
-
         input[type="submit"]:hover {
             background-color: #40745F;
         }
-
         #course{
             margin-top: -60px;
         }
-
         #cours{
             width: 38%;
             padding: 0;
@@ -312,11 +289,6 @@
             top: -400px;
             margin-left: 760px;
         }
-
-
-
-
-
     </style>
     @endsection
 
@@ -347,13 +319,14 @@
         @endif
         <form method="post" action="{{ route('coureurs.store') }}" enctype="multipart/form-data">
             @csrf
-
             <label for="nom_pilote">Nom du pilote</label>
             <input type="text" id="nom_pilote" name="nom_pilote" placeholder="Nom du pilote">
 
             <label for="photo_pilote">Photo du pilote</label>
             <input type="file" id="photo_pilote" name="photo_pilote">
 
+            <label for="photo_pilote">Photo du pilote</label>
+            <input type="file" id="photo_pilote" name="photo_pilote">
             <label for="sponsor">Sponsor</label>
             <input type="text" id="sponsor" name="sponsor" placeholder="Sponsor">
 
@@ -362,16 +335,16 @@
 
             <label for="logo-A">Logo</label>
             <input type="file" id="logo-A" name="logo-A" placeholder="Logo">
+            <label for="logo-A">Logo</label>
+            <input type="file" id="logo-A" name="logo-A" placeholder="Logo">
 
             <label for="immatriculation">Immatriculation</label>
             <input type="text" id="immatriculation" name="immatriculation" placeholder="Immatriculation">
 
             <input type="submit" value="Valider">
         </form>
-
         <div id="course">
             <img id="cours" alt="" src="{{ asset('images/Groupe 1619.png') }}">
-
         </div>
 
     </div>

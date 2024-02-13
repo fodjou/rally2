@@ -7,6 +7,8 @@ use App\HTTP\Controllers\UsersController;
 use App\Http\Controllers\DashboardController;
 use  App\Http\Controllers\ResultatController;
 use  App\Http\Controllers\AuthController;
+use  App\Http\Controllers\ResultatController;
+use  App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

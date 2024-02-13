@@ -23,7 +23,7 @@ class CoureurSeeder extends Seeder
                 'matricule' => $faker->unique()->randomNumber(6),
                 'image' => $faker->imageUrl(),
                 'sponsors' => $faker->words(3, true),
-                'logo' => $faker->imageUrl(100, 100),
+                'logo-A' => $faker->imageUrl(100, 100),
             ]);
         }
     }

@@ -3,6 +3,11 @@
 @section('title', 'Map')
 
 @section('css')
+@extends('layouts.app')
+
+@section('title', 'Map')
+
+@section('css')
 
     <style>
         .ellipse {
@@ -95,7 +100,7 @@
             position: relative;
             top: -40px;
             left: 35px;
-            width: 97%;
+            width: 94%;
             height: 69px;
             background: #B9A955 0 0 no-repeat;
             border-radius: 20px;
@@ -129,16 +134,11 @@
             border-collapse: collapse;
             position: relative;
             top: -15px;
-            left: 1000px;
+            right: 100px;
             width: 400px;
             border: 1px solid #707070;
             opacity: 1;
             border-radius: 10px;
-
-
-
-
-
         }
 
         th {
@@ -221,12 +221,16 @@
 @endsection
 
 @section('content')
+@endsection
+
+@section('content')
 <div id="main">
     <img id="bin" alt="" src="{{ asset('images/menu.png') }}">
     <img id="logo" alt="" src="{{ asset('images/logo1.png') }}">
     <h4 class="title" id="title"> / resultat realtime  </h4>
 
     <div id="main1"></div>
+    @include('layouts.components.sidebar')
     @include('layouts.components.sidebar')
 
     <div id="box">

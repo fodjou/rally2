@@ -15,6 +15,7 @@ class CoureurController extends Controller
     }
     public function create (){
         return view ('pages.creer_pilote');
+        return view ('pages.creer_pilote');
     }
 
     public function store(Request $request)
@@ -42,14 +43,20 @@ class CoureurController extends Controller
             Coureur::create([
                 'nom_conducteur' => $request->input('nom_pilote'),
                 'nom_vehicule'=> 'Ferrari',
+                'nom_conducteur' => $request->input('nom_pilote'),
+                'nom_vehicule'=> 'Ferrari',
                 'image' => $imageName,
+                'sponsors' => $request->input('sponsor'),
+                'marque' => $request->input('marque_vehicule'),
                 'sponsors' => $request->input('sponsor'),
                 'marque' => $request->input('marque_vehicule'),
                 'logo' => $logoName,
                 'matricule' => $request->input('immatriculation'),
+                'matricule' => $request->input('immatriculation'),
             ]);
         } catch (\Exception $e) {
             dd($e); // Ajout du bloc de débogage pour afficher l'erreur complète
+            return redirect()->back()->withInput()->withErrors(['error' => 'Une erreur s\'est produite lors de l\'enregistrement du coureur. Veuillez réessayer.']);
             return redirect()->back()->withInput()->withErrors(['error' => 'Une erreur s\'est produite lors de l\'enregistrement du coureur. Veuillez réessayer.']);
         }
     

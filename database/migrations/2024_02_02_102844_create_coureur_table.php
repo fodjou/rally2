@@ -16,7 +16,7 @@ class CreateCoureurTable extends Migration
             $table->string('matricule', 30);
             $table->string('image')->nullable();
             $table->string('sponsors', 255);
-            $table->string('logo')->nullable();
+            $table->string('logo-A')->nullable();
             $table->timestamps();
         });
     }
