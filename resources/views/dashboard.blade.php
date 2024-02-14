@@ -2,11 +2,36 @@
 
 @section('title', 'Créer Pilote')
 
+
+{{--<style>--}}
+{{--  --}}
+{{--    #right {--}}
+{{--        display: flex;--}}
+{{--    }--}}
+
+{{--    .small-box {--}}
+{{--        flex: 1;--}}
+{{--        display: flex;--}}
+{{--        align-items: center;--}}
+{{--        justify-content: center;--}}
+
+{{--    }--}}
+
+{{--    .small-box img {--}}
+{{--        max-width: 100%;--}}
+{{--        max-height: 100%;--}}
+{{--    }--}}
+{{--</style>--}}
+
+
 @section('content')
 <div id="main">
+    <a href="{{ route('show_reduce') }}">
+        <img id="bin" alt="" src="{{ asset('images/menu.png') }}">
+    </a>
 
- @include('layouts.components.logo')
-   
+    <div id="main1"></div>
+
  @include('layouts.components.sidebar')
 
  @include('layouts.components.mini-box')
@@ -18,8 +43,15 @@
             <p class="title" id="title2"> Liste des pilotes </p>
         </div>
         <div id="right">
-            <div class="small-box" id="refresh-box"></div>
-            <div class="small-box" id="close-box"></div>
+            <div class="small-box" id="refresh-box">
+                <img src="{{ asset('images/rotate-cw(2).png') }}" alt="Image 1">
+            </div>
+            <div class="small-box" id="close-box">
+                <a href="{{route('dashboard-detail')}}">
+                    <img src= "{{ asset('images/expand(1).png') }}" alt="Image 2">
+                </a>
+
+            </div>
         </div>
     </div>
 
@@ -35,10 +67,16 @@
         <tbody>
             @foreach($coureurs as $coureur)
                 <tr>
-                    <td>
-                        <div class="ellipse ellipse1"></div>
-                        <div class="ellipse ellipse2"></div>
-                    </td>
+                <td>
+                    <img
+                        class="ellipse ellipse1"
+                        src="{{ asset('images/'.$coureur->image) }}"
+                    >
+
+                    <img
+                        class="ellipse ellipse2"
+                        src="{{ asset('images/'.$coureur->logo) }}"
+                    >
                     <td>{{ $coureur->nom_conducteur }}</td>
                     <td>{{ $coureur->marque }}</td>
                     <td>{{ $coureur->nom_vehicule }}</td>

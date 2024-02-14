@@ -1,8 +1,4 @@
-@extends('layouts.app')
 
-@section('title', 'Resultat laps')
-
-@section('css')
 @extends('layouts.app')
 
 @section('title', 'Resultat laps')
@@ -433,4 +429,4 @@
 
 </div>
 @endsection
-@endsection
+

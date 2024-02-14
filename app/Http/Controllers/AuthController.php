@@ -14,13 +14,13 @@ class AuthController extends Controller
 
         // Validation des données
         $request->validate([
-            'username' => 'required',
+            'name' => 'required',
             'password' => 'required|min:8'
         ]);
 
         // Créer un nouvel utilisateur
         $user = new User();
-        $user->name = $request->username;
+        $user->name = $request->name;
         $user->password = Hash::make($request->password);
 
         // Enregistrer l'utilisateur
@@ -57,8 +57,8 @@ class AuthController extends Controller
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-    
+
             return redirect('/');
         }
-    
+
 }

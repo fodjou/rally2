@@ -29,10 +29,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // DÃ
 
 
 
-Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth'])->group(function () {
     // Route Dashboard
     Route::get('/dashboard', [DashboardController::class, "index"])->name("dashboard");
     Route::get('/dashboard-detail', [DashboardController::class, "show"])->name("dashboard-detail");
+    Route::get('/show_reduce', [DashboardController::class, "showReduce"])->name("show_reduce");  // visualiser le dashboard sans slidebar
     Route::get('/maps', [DashboardController::class, "showMap"])->name("Map");
 
     // Routes du CoureurController
@@ -68,6 +69,9 @@ Route::get('/resultat_special', function () {
 })->name('resultat_special');
 
 
+Route::get('dashboard_reduce', function () {
+    return view('dashboard_reduce');
+});
 
 Route::get('/wialon/connect', [WialonController::class, 'connect']);
 Route::get('/wialon/test-connection', [WialonController::class, 'testConnection']);

@@ -1,8 +1,4 @@
-@extends('layouts.app')
 
-@section('title', 'Map')
-
-@section('css')
 @extends('layouts.app')
 
 @section('title', 'Map')
@@ -80,7 +76,7 @@
             opacity: 1;
         }
 
-   
+
         #box {
             position: absolute;
             top: 50%;
@@ -112,7 +108,7 @@
             display: inline-block;
         }
 
-        #right {
+        #right{
             width: auto;
             flex-direction: row;
             display: inline-block;
@@ -121,7 +117,7 @@
             position: absolute;
         }
 
-        .small-box {
+        .small-box{
             width: 35px;
             height: 35px;
             border: 0.5px solid #FFFFFF;
@@ -129,6 +125,22 @@
             opacity: 1;
             display: inline-block;
             margin-left: 7px;
+        }
+        #right {
+            display: flex;
+        }
+
+        .small-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .small-box img {
+            max-width: 100%;
+            max-height: 100%;
         }
         table {
             border-collapse: collapse;
@@ -240,8 +252,12 @@
                 <p class="title" id="title2"> Resultat realtime </p>
             </div>
             <div id="right">
-                <div class="small-box" id="refresh-box"></div>
-                <div class="small-box" id="close-box"></div>
+                <div class="small-box" id="refresh-box">
+                    <img src="{{ asset('images/rotate-cw(2).png') }}" alt="Image 1">
+                </div>
+                <div class="small-box" id="close-box">
+                    <img src= "{{ asset('images/expand(1).png') }}" alt="Image 2">
+                </div>
             </div>
         </div>
 

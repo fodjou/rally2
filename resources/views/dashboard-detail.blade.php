@@ -106,7 +106,7 @@
             display: inline-block;
         }
 
-        #right {
+        #right{
             width: auto;
             flex-direction: row;
             display: inline-block;
@@ -115,7 +115,7 @@
             position: absolute;
         }
 
-        .small-box {
+        .small-box{
             width: 35px;
             height: 35px;
             border: 0.5px solid #FFFFFF;
@@ -123,6 +123,22 @@
             opacity: 1;
             display: inline-block;
             margin-left: 7px;
+        }
+        #right {
+            display: flex;
+        }
+
+        .small-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .small-box img {
+            max-width: 100%;
+            max-height: 100%;
         }
 
         #close {
@@ -226,8 +242,15 @@
                 <p class="title" id="title2"> Liste des pilotes </p>
             </div>
             <div id="right">
-                <div class="small-box" id="refresh-box"></div>
-                <div class="small-box" id="close-box"></div>
+                <div class="small-box" id="refresh-box">
+                    <img src="{{ asset('images/rotate-cw(2).png') }}" alt="Image 1">
+                </div>
+                <div class="small-box" id="close-box">
+                    <a href="{{ route('dashboard')}}" >
+                    <img src= "{{ asset('images/x.png') }}" alt="Image 2">
+                    </a>
+
+                </div>
             </div>
         </div>
 
@@ -527,6 +550,22 @@
         </table>
 
     </div>
+
+    @section('styles')
+        <style>
+            .small-box {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: white;
+            }
+
+            .small-box img {
+                max-width: 100%;
+                max-height: 100%;
+            }
+        </style>
+    @endsection
 
 </div>
 </body>

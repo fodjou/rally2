@@ -75,8 +75,8 @@
             position: absolute;
             left: 50px;
             top: 125px;
-            width: 1440px;
-            height: 600px;
+            width: 1250px;
+            height: 500px;
             background: #FFFFFF 0 0 no-repeat padding-box;
             box-shadow: 0 3px 6px #00000029;
             border: 1px solid #707070;
@@ -118,6 +118,22 @@
             opacity: 1;
             display: inline-block;
             margin-left: 7px;
+        }
+        #right {
+            display: flex;
+        }
+
+        .small-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .small-box img {
+            max-width: 100%;
+            max-height: 100%;
         }
 
         #close{
@@ -231,8 +247,12 @@
                 <p class="title" id="title2"> Evolution des laps </p>
             </div>
             <div id="right">
-                <div class="small-box" id="refresh-box"></div>
-                <div class="small-box" id="close-box"></div>
+                <div class="small-box" id="refresh-box">
+                    <img src="{{ asset('images/rotate-cw(2).png') }}" alt="Image 1">
+                </div>
+                <div class="small-box" id="close-box">
+                    <img src= "{{ asset('images/expand(1).png') }}" alt="Image 2">
+                </div>
             </div>
         </div>
 

@@ -1,78 +1,21 @@
 @extends('layouts.app')
 
-@section('title', 'Resultat final')
-
 @section('css')
+
+
+    @section('title', 'Resultat final')
+
+
     <style>
-        #main{
-            position: absolute;
-            top: -9px;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: transparent  linear-gradient(178deg, #548F74 0%, #FFD892E0 62%, #FFF2DBF5 73%, #FFFFFF 100%) 0 0 no-repeat padding-box;
-            opacity: 1;
-            z-index: 99;
-        }
-        #bin{
-            width: 2%;
-            position: absolute;
-            top: 30px;
-            left: 200px;
-        }
-        #logo{
-            width: 5%;
-            position: absolute;
-            top: 23px;
-            left: 70px;
-            filter: invert(100%);
-        }
-        #sublogo{
-            width: 3.5%;
-            position: absolute;
-            top: 10px;
-            left: 30px;
-            display: inline-block;
-        }
-        .title{
-            text-align: left;
-            font: normal normal normal 18px/34px Roboto;
-            letter-spacing: 0;
-            color: #FFFFFF;
-            opacity: 1;
-        }
 
-        #title{
-            position: absolute;
-            top: 0;
-            left: 150px;
-        }
-
-        #title2{
-            position: relative;
-            top: -5px;
-            left: 90px;
-            font-size: 21px;
-        }
-
-        #main1{
-            position: absolute;
-            top: -4px;
-            left: 300px;
-            width: 70%;
-            height: 450px;
-            background: transparent  linear-gradient(178deg, #548F74 0%, #FFD892E0 62%, #FFF2DBF5 73%, #FFFFFF 100%) 0 0 no-repeat padding-box;
-            background-size: 100%;
-            opacity: 1;
-        }
 
         #box{
             position: absolute;
             top: 50%;
-            left: 50%;
+            left: 60%;
             transform: translate(-50%, -50%);
-            width: 1300px;
-            height: 600px;
+            width: 1050px;
+            height: 530px;
             background: #FFFFFF 0 0 no-repeat padding-box;
             box-shadow: 0 3px 6px #00000029;
             border: 1px solid #707070;
@@ -80,7 +23,6 @@
             opacity: 1;
 
         }
-
         #subtitle{
             position: relative;
             top: -40px;
@@ -90,13 +32,11 @@
             background: #B9A955 0 0 no-repeat;
             border-radius: 20px;
         }
-
         #left{
             width: auto;
             flex-direction: row;
             display: inline-block;
         }
-
         #right{
             width: auto;
             flex-direction: row;
@@ -115,7 +55,22 @@
             display: inline-block;
             margin-left: 7px;
         }
+        #right {
+            display: flex;
+        }
 
+        .small-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .small-box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
         #close{
             position: relative;
             top: 1px;
@@ -125,7 +80,6 @@
             color: #FFFFFF;
             opacity: 1;
         }
-
         #slidbar{
             background: #FFFFFF 0 0 no-repeat padding-box;
             box-shadow: 0 3px 6px #00000029;
@@ -137,7 +91,6 @@
             opacity: 1;
 
         }
-
         #profil {
             position: absolute;
             top: -60px;
@@ -151,7 +104,6 @@
             right: -55px;
             margin-top:-20px ;
         }
-
         hr{
             margin-top:60px ;
             width: 75%;
@@ -205,7 +157,7 @@
         }
         #down img {
             position: relative;
-            left: -30px;
+            left: 0px;
             width: 120%;
             top: 30%
         }
@@ -234,14 +186,14 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-right: 600px;
+            margin-right: 350px;
         }
         label {
             display: none; /* Pour masquer les labels */
         }
         input[type="file"] {
             width: 300px;
-            padding: 10px;
+            padding: 8px;
             margin-bottom: 30px;
             border-radius: 20px;
             border: 1px solid #ccc;
@@ -280,6 +232,7 @@
         #course{
             margin-top: -60px;
         }
+
         #cours{
             width: 38%;
             padding: 0;
@@ -289,16 +242,20 @@
             top: -400px;
             margin-left: 760px;
         }
+
+
     </style>
-    @endsection
+
 
     @section('content')
 
+    @endsection
+
 <div id="main">
-  
+
 
     @include('layouts.components.logo')
-   
+
     @include('layouts.components.sidebar')
 
     <div id="box">
@@ -308,8 +265,12 @@
                 <p id="title2" class="title"> Creer un pilote </p>
             </div>
             <div id="right">
-                <div class="small-box" id="refresh-box">  </div>
-                <div class="small-box" id="close-box"> </div>
+                <div class="small-box" id="refresh-box">
+                    <img src="{{ asset('images/rotate-cw(2).png') }}" alt="Image 1">
+                </div>
+                <div class="small-box" id="close-box">
+                    <img src= "{{ asset('images/expand(1).png') }}" alt="Image 2">
+                </div>
             </div>
         </div>
         @if(session('status'))
@@ -325,8 +286,6 @@
             <label for="photo_pilote">Photo du pilote</label>
             <input type="file" id="photo_pilote" name="photo_pilote">
 
-            <label for="photo_pilote">Photo du pilote</label>
-            <input type="file" id="photo_pilote" name="photo_pilote">
             <label for="sponsor">Sponsor</label>
             <input type="text" id="sponsor" name="sponsor" placeholder="Sponsor">
 
@@ -335,8 +294,7 @@
 
             <label for="logo-A">Logo</label>
             <input type="file" id="logo-A" name="logo-A" placeholder="Logo">
-            <label for="logo-A">Logo</label>
-            <input type="file" id="logo-A" name="logo-A" placeholder="Logo">
+
 
             <label for="immatriculation">Immatriculation</label>
             <input type="text" id="immatriculation" name="immatriculation" placeholder="Immatriculation">

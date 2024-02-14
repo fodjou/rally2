@@ -24,5 +24,11 @@ class DashboardController extends Controller
         return view('pages.map');
     }
 
+    public function showReduce(){
+        $coureurs = Coureur::paginate(5);
+        return view('dashboard_reduce', compact('coureurs'));
+
+    }
+
 
 }
