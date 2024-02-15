@@ -72,7 +72,7 @@
             cursor: pointer;
         }
         button[type="submit"]:hover {
-            background-color: #FF9800; /* Nouvelle couleur de fond au survol */
+            background-color: #FFD892E0; /* Nouvelle couleur de fond au survol */
         }
         @media (max-width: 549px) {
             .background-image {

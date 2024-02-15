@@ -229,7 +229,9 @@
 </head>
 <body>
 <div id="main">
-    <img id="bin" alt="" src="{{ asset('images/menu.png') }}">
+    <a href="{{ route('dashboard') }}">
+        <img id="bin" alt="" src="{{ asset('images/menu.png') }}">
+    </a>
     <img id="logo" alt="" src="{{ asset('images/logo1.png') }}">
     <h4 class="title" id="title"> / Dashboard </h4>
 

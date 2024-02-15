@@ -15,7 +15,6 @@ class CoureurController extends Controller
     }
     public function create (){
         return view ('pages.creer_pilote');
-        return view ('pages.creer_pilote');
     }
 
     public function store(Request $request)
@@ -28,38 +27,32 @@ class CoureurController extends Controller
             'logo-A' => 'nullable|image|max:2048',
             'immatriculation' => 'required',
         ]);
-    
+
         $imageName = $request->file('photo_pilote')->getClientOriginalName();
         $request->file('photo_pilote')->move(public_path('coureur'), $imageName);
-        
+
         if ($request->hasFile('logo-A')) {
             $logoName = $request->file('logo-A')->getClientOriginalName();
             $request->file('logo-A')->move(public_path('logo-A'), $logoName);
         } else {
             $logoName = null;
         }
-    
+
         try {
             Coureur::create([
                 'nom_conducteur' => $request->input('nom_pilote'),
-                'nom_vehicule'=> 'Ferrari',
-                'nom_conducteur' => $request->input('nom_pilote'),
-                'nom_vehicule'=> 'Ferrari',
                 'image' => $imageName,
                 'sponsors' => $request->input('sponsor'),
                 'marque' => $request->input('marque_vehicule'),
-                'sponsors' => $request->input('sponsor'),
-                'marque' => $request->input('marque_vehicule'),
-                'logo' => $logoName,
+                'logo-A' => $logoName,
                 'matricule' => $request->input('immatriculation'),
-                'matricule' => $request->input('immatriculation'),
+
             ]);
         } catch (\Exception $e) {
             dd($e); // Ajout du bloc de débogage pour afficher l'erreur complète
             return redirect()->back()->withInput()->withErrors(['error' => 'Une erreur s\'est produite lors de l\'enregistrement du coureur. Veuillez réessayer.']);
-            return redirect()->back()->withInput()->withErrors(['error' => 'Une erreur s\'est produite lors de l\'enregistrement du coureur. Veuillez réessayer.']);
         }
-    
+
         return redirect()->route('dashboard')->with('message', 'Coureur créé avec succès');
     }
 
@@ -81,21 +74,26 @@ class CoureurController extends Controller
 
         // Validation des données
         $this->validate($request, [
-            'nom_vehicule' => 'required',
             'nom_conducteur' => 'required',
+            'image' => 'required',
             'marque' => 'required',
             'matricule' => 'required',
             'sponsors' => 'required',
-            'logo' => 'required'
+            'logo-A' => 'required'
         ]);
 
         // Mettre à jour les attributs
-        $coureur->nom_vehicule = $request->nom_vehicule;
+
         $coureur->nom_conducteur = $request->nom_conducteur;
+        $imageName = $request->file('photo_pilote')->getClientOriginalName();
+        $request->file('photo_pilote')->move(public_path('coureur'), $imageName);
+        $coureur->image = $imageName;
         $coureur->marque = $request->marque;
         $coureur->matricule = $request->matricule;
         $coureur->sponsors = $request->sponsors;
-        $coureur->logo = $request->logo;
+        $logoName = $logoName = $request->file('logo-A')->getClientOriginalName();
+        $request->file('logo-A')->move(public_path('logo-A'), $logoName);
+        $coureur->logo_A = $logoName;
 
         // Enregistrer les modifications
         $coureur->save();

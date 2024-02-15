@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use app\Http\Controllers\WialonController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -15,20 +15,17 @@ class UsersController
         // Validation des données
         $request->validate([
             'username' => 'required',
-            'username' => 'required',
             'password' => 'required|min:8'
         ]);
 
         // Créer un nouvel utilisateur
         $user = new User();
         $user->name = $request->username;
-        $user->name = $request->username;
         $user->password = Hash::make($request->password);
 
         // Enregistrer l'utilisateur
         $user->save();
 
-        return redirect('/dashboard')->with('message', 'Vous êtes désormais inscrit(e). Vous pouvez vous connecter.');
         return redirect('/dashboard')->with('message', 'Vous êtes désormais inscrit(e). Vous pouvez vous connecter.');
 
     }
@@ -45,6 +42,19 @@ class UsersController
                 return redirect()->back()->withErrors(['message' => 'Identifiants incorrects']);
             }
         }
+
+
+        public function yourControllerMethod()
+    {
+        $wialonData = $this->requestWialonData();
+
+        // Traitez les données de réponse de Wialon ici
+
+        return view('/', ['wialonData' => $wialonData]);
+    }
+
+
+
 
 //    public function getAllUsers()
 //    {

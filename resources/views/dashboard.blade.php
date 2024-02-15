@@ -59,8 +59,9 @@
         <thead>
             <th></th>
             <th>Pilotes</th>
+            <th>Sponsors</th>
             <th>Marques</th>
-            <th>Véhicules</th>
+            <th>Matricules</th>
             <th>Actions</th>
         </thead>
 
@@ -78,8 +79,9 @@
                         src="{{ asset('images/'.$coureur->logo) }}"
                     >
                     <td>{{ $coureur->nom_conducteur }}</td>
+                    <td>{{ $coureur->sponsors }}</td>
                     <td>{{ $coureur->marque }}</td>
-                    <td>{{ $coureur->nom_vehicule }}</td>
+                    <td>{{ $coureur->immatriculation}}</td>
                     <td class="actions">
                         <div class="action action1">Début Course</div>
                         <div class="action action2">Fin Course</div>

@@ -10,7 +10,6 @@ class CreateCoureurTable extends Migration
     {
         Schema::create('coureurs', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_vehicule', 30);
             $table->string('nom_conducteur', 255);
             $table->string('marque', 255);
             $table->string('matricule', 30);

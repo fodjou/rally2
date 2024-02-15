@@ -15,7 +15,6 @@ class Coureur extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'nom_vehicule',
         'nom_conducteur',
         'marque',
         'matricule',

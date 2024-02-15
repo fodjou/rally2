@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use  App\Http\Controllers\ResultatController;
 use  App\Http\Controllers\AuthController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,11 +30,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout'); // DÃ
 
 
 
-    Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth'])->group(function () {
     // Route Dashboard
     Route::get('/dashboard', [DashboardController::class, "index"])->name("dashboard");
     Route::get('/dashboard-detail', [DashboardController::class, "show"])->name("dashboard-detail");
-    Route::get('/show_reduce', [DashboardController::class, "showReduce"])->name("show_reduce");  // visualiser le dashboard sans slidebar
+    Route::get('/show_reduce', [DashboardController::class, "showReduce"])->name("show_reduce")  ;// visualiser le dashboard sans slidebar
     Route::get('/maps', [DashboardController::class, "showMap"])->name("Map");
 
     // Routes du CoureurController
@@ -75,3 +76,6 @@ Route::get('dashboard_reduce', function () {
 
 Route::get('/wialon/connect', [WialonController::class, 'connect']);
 Route::get('/wialon/test-connection', [WialonController::class, 'testConnection']);
+
+
+Route::get('/wialon-data', [WialonController::class, 'requestWialonData'])->name('wialon.data');

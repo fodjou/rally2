@@ -1,9 +1,10 @@
-
 @extends('layouts.app')
+
+@section('css')
 
 @section('title', 'Map')
 
-@section('css')
+
 
     <style>
         .ellipse {
