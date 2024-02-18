@@ -53,34 +53,20 @@ class WialonController
     }
 
 
-    public function requestWialonData($fileName, $zones, $compress)
+    public function getLoginToken()
     {
         $client = new Client();
-        $url = env('WIALON_URL') . '/wialon/ajax.html'; // URL de l'API Wialon
-        $params = [
-            'params' => [
-                'fileName' => $fileName,
-                'zones' => $zones,
-                'compress' => $compress
-            ],
-            'id' => 1, // ID de la demande
-            'svc' => 'exchange/export_zones', // Service pour l'exportation des zones
-            'login' => env('WIALON_USERNAME'),
-            'password' => env('WIALON_PASSWORD')
-        ];
 
-        try {
-            $response = $client->request('POST', $url, [
-                'form_params' => $params,
-                'verify' => false // Désactiver la vérification SSL
-            ]);
-            $data = $response->getBody()->getContents();
-            // Traitez les données de réponse ici
-            return $data;
-        } catch (\Exception $e) {
-            // Gérez les erreurs ici
-            return $e->getMessage();
-        }
+        $response = $client->get('https://hst-api.wialon.com/wialon/ajax.html', [
+            'query' => [
+                'svc' => 'token/login',
+
+            ]
+        ]);
+
+        $data = json_decode((string) $response->getBody(), true);
+
+        return $data;
     }
 
 

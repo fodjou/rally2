@@ -260,12 +260,10 @@
 
         <div id="actions">
             <div id="action-left">
-
-                <div id="lap1"> Evolution des speciales 1</div>
-
-                <a href="{{route('special2Result')}}">
-                    <div id="lap2"> Evolution des speciales 2</div>
+                <a href="{{route('specialResult')}}">
+                    <div id="lap1"> Evolution des speciales 1</div>
                 </a>
+                <div id="lap2"> Evolution des speciales 2</div>
             </div>
             <div id="action-right">
                 <span id="action"> Actions </span>

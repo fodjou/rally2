@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
 
-@section('title', 'Resultat lap')
+@section('title', 'Resultat lap2')
 
 @section('css')
     <style>
@@ -168,7 +168,7 @@
             align-items: center;
             width: 350px;
             height: 40px;
-            background: #585859  0 0 no-repeat padding-box;
+            background: #707070 0 0 no-repeat padding-box;
             opacity: 1;
             font: normal normal normal 17px Roboto;
             letter-spacing: 0;
@@ -179,7 +179,7 @@
             margin-left: 10px;
             width: 350px;
             height: 40px;
-            background: #707070 0 0 no-repeat padding-box;
+            background: #585859 0 0 no-repeat padding-box;
             text-align: center;
             font: normal normal normal 17px Roboto;
             display: flex;
@@ -303,8 +303,8 @@
 
             <div id="actions">
                 <div id="action-left">
-                    <a href="{{route('laps2Result')}}">
-                        <div id="lap1"> Evolution des laps 1</div>
+                    <a href="{{route('lapsResult')}}">
+                      <div id="lap1"> Evolution des laps 1</div>
                     </a>
                     <div id="lap2"> Evolution des laps 2</div>
                 </div>

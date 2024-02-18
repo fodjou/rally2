@@ -1,9 +1,9 @@
 <?php
 
 use App\Http\Controllers\CoureurController;
+use App\Http\Controllers\LapsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WialonController;
-use App\HTTP\Controllers\UsersController;
 use App\Http\Controllers\DashboardController;
 use  App\Http\Controllers\ResultatController;
 use  App\Http\Controllers\AuthController;
@@ -49,7 +49,15 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Coureurs/top-final', [ResultatController::class, 'showFinalResult'])->name('coureurs.top-final');
     // Affiche le laps Resultat
     Route::get('/Resultat-laps', [ResultatController::class, 'showLapsResult'])->name('lapsResult');
+    Route::get('/resulat_lap2', [ResultatController::class, "showLaps2Result"])->name('laps2Result');
+    // Affiche les specials results
+    Route::get('/Resultat-special', [ResultatController::class, 'showSpecialResult'])->name('specialResult');
+    Route::get('/resulat_special2', [ResultatController::class, "showSpecia2Result"])->name('special2Result');
+
+
+
 });
+
 
 
 // Route de gestion des coureurs
@@ -74,6 +82,14 @@ Route::get('dashboard_reduce', function () {
     return view('dashboard_reduce');
 });
 
+
+
+
+
+
+
+
+// route de wialon
 Route::get('/wialon/connect', [WialonController::class, 'connect']);
 Route::get('/wialon/test-connection', [WialonController::class, 'testConnection']);
 
