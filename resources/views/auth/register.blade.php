@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Welcome</title>
     <style>
+
         /* Styles CSS */
+
         body {
             margin: 0;
             padding: 0;
         }
+
+
         .background-image {
             background: linear-gradient(178deg, #548F74 0%, #FFD892E0 62%, #FFF2DBF5 73%, #FFFFFF 100%),
             url({{ asset('images/background1.png') }}) no-repeat;
@@ -35,6 +39,7 @@
         h1 {
             margin-top: 0;
         }
+
         img {
             top: 150px;
             left: 791px;
@@ -42,10 +47,12 @@
             height: 188px;
             opacity: 1;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
         }
+
         input[type="text"],
         input[type="password"] {
             top: 590px;
@@ -72,14 +79,16 @@
             cursor: pointer;
         }
         button[type="submit"]:hover {
-            background-color: #FFD892E0; /* Nouvelle couleur de fond au survol */
+            background-color: #FF9800; /* Nouvelle couleur de fond au survol */
         }
+
         @media (max-width: 549px) {
             .background-image {
                 background-size: cover;
                 height: 250%;
                 width: 150%;
             }
+
             .form-container {
                 position: absolute;
                 border-radius: 60px 60px 60px 60px;
@@ -88,11 +97,13 @@
                 width: 297px; /* Nouvelle largeur */
                 height: 591px; /* Nouvelle hauteur*/
             }
+
             input[type="text"],
             input[type="password"] {
                 width: 280px;
                 height: 21px;
             }
+
             button[type="submit"] {
                 width: 280px;
                 height: 35px;
@@ -103,28 +114,28 @@
                 left: 15%; /* Nouvelle position left */
             }
         }
-    </style>
 
+    </style>
 </head>
 <body>
 <div class="background-image">
 
-    <div class="form-container">
-        <img src="{{ asset('images/logo1.png') }}" alt="Logo">
-        <h1>Inscription</h1>
-        <form action="/register" method="POST">
-            @csrf
+<div class="form-container">
+    <img src="{{ asset('images/logo1.png') }}" alt="Logo">
+    <h1>Inscription</h1>
+    <form action="/register" method="POST">
+        @csrf
 
-            <label for="name">Nom:</label>
-            <input type="text" id="name" name="name" required>
+        <label for="name">Nom:</label>
+        <input type="text" id="name" name="name" required>
 
-            <label for="password">Mot de passe:</label>
-            <input type="password" id="password" name="password" required>
+        <label for="password">Mot de passe:</label>
+        <input type="password" id="password" name="password" required>
 
-            <button type="submit">S'inscrire</button>
-        </form>
-        <p>Déjà inscrit ? <a href="/">Connectez-vous ici</a></p>
-    </div>
+        <button type="submit">S'inscrire</button>
+    </form>
+    <p>Déjà inscrit ? <a href="/">Connectez-vous ici</a></p>
+</div>
 
 </div>
 </body>
