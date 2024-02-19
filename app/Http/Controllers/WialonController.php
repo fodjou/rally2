@@ -5,7 +5,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Response;
 
-class WialonController
+class WialonController extends Controller
 {
     public function connect()
     {
@@ -32,7 +32,6 @@ class WialonController
     }
 
 
-
     public function testConnection()
     {
         $client = new Client();
@@ -50,24 +49,37 @@ class WialonController
             // Erreur de connexion
             return response()->json(['error' => $e->getMessage()], 500);
         }
+
     }
 
 
-    public function getLoginToken()
+
+    public function getEidFromUrl($url)
     {
         $client = new Client();
+        $response = $client->get($url);
+        $json = json_decode($response->getBody(), true);
 
-        $response = $client->get('https://hst-api.wialon.com/wialon/ajax.html', [
-            'query' => [
-                'svc' => 'token/login',
+        if (isset($json['eid'])) {
+            return $json['eid'];
+        } else {
+            return null;
+        }
+    }
 
-            ]
-        ]);
+    public function checkEid()
+    {
+        $url = 'https://hst-api.wialon.com/wialon/ajax.html?svc=token/login&params={"token":"1f59b5fbd0b702d585a477e3a3d701bcDAAE0189ABDC599F4E1BBA038229A4AB2EE328D8"}';
 
-        $data = json_decode((string) $response->getBody(), true);
+        $eid = $this->getEidFromUrl($url);
 
-        return $data;
+        return "EID: " . $eid;
     }
 
 
 }
+
+
+
+
+

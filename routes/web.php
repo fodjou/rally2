@@ -1,12 +1,13 @@
 <?php
 
 use App\Http\Controllers\CoureurController;
-use App\Http\Controllers\LapsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WialonController;
 use App\Http\Controllers\DashboardController;
 use  App\Http\Controllers\ResultatController;
 use  App\Http\Controllers\AuthController;
+use App\Http\Controllers\CourseController;
+
 
 
 /*
@@ -53,6 +54,13 @@ Route::middleware(['auth'])->group(function () {
     // Affiche les specials results
     Route::get('/Resultat-special', [ResultatController::class, 'showSpecialResult'])->name('specialResult');
     Route::get('/resulat_special2', [ResultatController::class, "showSpecia2Result"])->name('special2Result');
+// route du Couceur
+
+    // routes/web.php
+
+    Route::get('/course', 'CourseController@index')->name('course.index');
+    Route::get('/course', [CourseController::class, "course.index"])->name('course.action');
+
 
 
 
@@ -92,6 +100,8 @@ Route::get('dashboard_reduce', function () {
 // route de wialon
 Route::get('/wialon/connect', [WialonController::class, 'connect']);
 Route::get('/wialon/test-connection', [WialonController::class, 'testConnection']);
+Route::get('/wialon/eid', [WialonController::class, 'getEidFromUrl($url)']);
 
+Route::get('/check-eid', [WialonController::class, 'checkEid']);
 
-Route::get('/wialon-data', [WialonController::class, 'requestWialonData'])->name('wialon.data');
+Route::get('/wialon/eid', [AuthController::class, 'getEidFromUrl($url)']);

@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use GuzzleHttp\Client;
 
 class AuthController extends Controller
 {
@@ -29,19 +30,48 @@ class AuthController extends Controller
         return redirect('/dashboard')->with('message', 'Vous êtes désormais inscrit(e). Vous pouvez vous connecter.');
 
     }
-        public function login(Request $request)
-        {
-            // Validez les données du formulaire
-            $credentials = $request->only('name', 'password');
 
-            if (auth()->attempt($credentials)) {
-                // L'utilisateur est connecté avec succès
+    public function login(Request $request)
+    {
+        // Validez les données du formulaire
+        $credentials = $request->only('name', 'password');
+
+        if (auth()->attempt($credentials)) {
+            // L'utilisateur est connecté avec succès
+            $eid = $this->getEidFromWialon();
+
+            if ($eid) {
+                // Utilisez l'EID pour effectuer l'authentification avec Wialon
+                // ...
+
                 return redirect()->intended('/dashboard'); // Rediriger vers la page de tableau de bord après connexion réussie
             } else {
-                // Échec de l'authentification, rediriger avec un message d'erreur
-                return redirect()->back()->withErrors(['message' => 'Identifiants incorrects']);
+                // Échec de la récupération de l'EID depuis Wialon, rediriger avec un message d'erreur
+                return redirect()->back()->withErrors(['message' => 'Échec de récupération de l\'EID depuis Wialon']);
             }
+        } else {
+            // Échec de l'authentification, rediriger avec un message d'erreur
+            return redirect()->back()->withErrors(['message' => 'Identifiants incorrects']);
         }
+    }
+
+    public function getEidFromWialon()
+    {
+        $url = 'https://hst-api.wialon.com/wialon/ajax.html?svc=token/login&params={"token":"1f59b5fbd0b702d585a477e3a3d701bcDAAE0189ABDC599F4E1BBA038229A4AB2EE328D8"}';
+
+        $client = new Client();
+        $response = $client->get($url);
+        $json = json_decode($response->getBody(), true);
+
+        if (isset($json['eid'])) {
+            $eid = $json['eid'];
+            return $eid;
+        }
+
+        return null;
+    }
+
+
 
         public function showLoginForm()
         {

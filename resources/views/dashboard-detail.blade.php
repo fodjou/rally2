@@ -225,6 +225,13 @@
             right: -40px;
             background: #8C8C8C 0 0 no-repeat padding-box;
         }
+        .action.active {
+            color: #585859;
+        }
+
+        .action.inactive {
+            color: #8C8C8C;
+        }
     </style>
 </head>
 <body>
@@ -490,6 +497,14 @@
             right: -40px;
             background: #8C8C8C 0 0 no-repeat padding-box;
         }
+        .action {
+
+            background-color: #8C8C8C;
+        }
+
+        .action#action1 {
+            background-color: #585859;
+        }
     </style>
 </head>
 <body>
@@ -539,9 +554,44 @@
                     <td>{{ $coureur->nom_vehicule }}</td>
                     <td>{{ $coureur->marque }}</td>
                     <td class="actions">
-                        <div class="action action1">Début Course</div>
-                        <div class="action action2">Fin Course</div>
-                        <button class="btn btn-danger" onclick="window.location.href='/delete/{{ $coureur->id }}'">delete</button>
+
+
+
+                        <a href="{{ route('Map') }}">
+                            <div
+                            class="action"
+                            id="action1"
+                            onclick="changeColor(this)"
+                            style="background-color: #585859">
+                            Début Course
+                        </div>
+                        </a>
+
+                        <div
+                            class="action"
+                            id="action2"
+                            onclick="changeColor(this)"
+                            style="background-color: #8C8C8C">
+                            Fin Course
+                        </div>
+
+                        <script>
+                            function changeColor(el) {
+
+                                var color1 = '#585859';
+                                var color2 = '#8C8C8C';
+
+                                var otherEl = document.getElementById(
+                                    el.id === 'action1' ? 'action2' : 'action1'
+                                );
+
+                                // Changer seulement le fond
+                                el.style.backgroundColor = color2;
+                                otherEl.style.backgroundColor = color1;
+
+                            }
+                        </script>
+
                     </td>
 
 

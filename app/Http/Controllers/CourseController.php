@@ -6,6 +6,17 @@ use Illuminate\Http\Request;
 
 class CourseController extends Controller
 {
-    //
+    public function index()
+    {
+        return view('pages.map');
+    }
+
+    public function action(Request $request)
+    {
+        // Mettre à jour la variable de session
+        session()->put('selectedAction', $request->input('action'));
+
+        return redirect()->back();
+    }
 
 }

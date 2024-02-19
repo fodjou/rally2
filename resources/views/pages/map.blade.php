@@ -1,8 +1,8 @@
 @extends('layouts.app')
-
 @section('css')
 
-@section('title', 'Map')
+
+@section('title', 'map')
 
 
 
@@ -147,7 +147,7 @@
             border-collapse: collapse;
             position: relative;
             top: -15px;
-            right: 100px;
+            right: -10px;
             width: 400px;
             border: 1px solid #707070;
             opacity: 1;
@@ -231,19 +231,19 @@
             bottom: 15px;
         }
     </style>
-@endsection
 
-@section('content')
-@endsection
+    @section('content')
 
-@section('content')
+    @endsection
+
 <div id="main">
     <img id="bin" alt="" src="{{ asset('images/menu.png') }}">
     <img id="logo" alt="" src="{{ asset('images/logo1.png') }}">
     <h4 class="title" id="title"> / resultat realtime  </h4>
 
     <div id="main1"></div>
-    @include('layouts.components.sidebar')
+    @include('layouts.components.logo')
+
     @include('layouts.components.sidebar')
 
     <div id="box">
@@ -344,5 +344,4 @@
     </div>
 
 </div>
-@endsection
-
+    @endsection
