@@ -25,6 +25,7 @@
             justify-content: center;
             align-items: center;
         }
+
         .form-container {
             background-color: rgb(255, 255, 255);
             padding: 20px;
@@ -36,6 +37,7 @@
             width: 697px; /* Nouvelle largeur */
             height: 741px; /* Nouvelle hauteur*/
         }
+
         h1 {
             margin-top: 0;
         }
@@ -66,6 +68,7 @@
             font-size: 20px; /* Nouvelle taille de police */
 
         }
+
         button[type="submit"] {
             top: 590px;
             left: 714px;
@@ -78,6 +81,7 @@
             border-radius: 36px;
             cursor: pointer;
         }
+
         button[type="submit"]:hover {
             background-color: #FF9800; /* Nouvelle couleur de fond au survol */
         }
@@ -109,6 +113,7 @@
                 height: 35px;
             }
         }
+
         @media (max-width: 320px) {
             .form-container {
                 left: 15%; /* Nouvelle position left */
