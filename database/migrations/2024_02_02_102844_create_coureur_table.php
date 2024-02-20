@@ -16,6 +16,7 @@ class CreateCoureurTable extends Migration
             $table->string('image')->nullable();
             $table->string('sponsors', 255);
             $table->string('logo-A')->nullable();
+            $table->string('wialon_driver_id')->nullable(); // Nouvelle colonne
             $table->timestamps();
         });
     }

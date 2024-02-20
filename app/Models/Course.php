@@ -20,7 +20,8 @@ class Course extends Model
         'start_time',
         'end_time',
         'starting_kilometer',
-        'ending_kilometer'
+        'ending_kilometer',
+        'wialon_driver_id',
     ];
 
 

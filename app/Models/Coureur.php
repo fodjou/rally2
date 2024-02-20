@@ -22,6 +22,8 @@ class Coureur extends Model
         'sponsors',
         'logo-A',
 
+
     ];
+
 
 }
