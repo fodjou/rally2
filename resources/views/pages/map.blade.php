@@ -4,7 +4,7 @@
 
 @section('title', 'map')
 
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <style>
         .ellipse {
@@ -261,6 +261,99 @@
                 </div>
             </div>
         </div>
+
+        <div id="mapContainer"></div>
+        <script>
+            $(document).ready(function() {
+                // Paramètres de connexion
+                require('dotenv').config();
+
+                let process;
+                var username = process.env.WIALON_USERNAME;
+                var password = process.env.WIALON_PASSWORD;
+                var url = "https://hst-api.wialon.com/wialon/ajax.html?svc=token/login";
+
+                // Demande de jeton d'accès
+                $.post(url, { token: "1f59b5fbd0b702d585a477e3a3d701bcDAAE0189ABDC599F4E1BBA038229A4AB2EE328D8" })
+                    .done(function(response) {
+                        var sessionID = response.eid;
+
+                        // Configuration de la carte
+                        var mapConfig = {
+                            map_div: "mapContainer",
+                            map_height: "500px",
+                            map_width: "100%",
+                            baseLayers: ["carto", "satellite", "hybrid"],
+                            zoom: 12
+                        };
+
+                        // Connexion à Wialon
+                        $.post("https://hst-api.wialon.com/wialon/ajax.html?svc=core/login", {
+                            sid: sessionID,
+                            params: JSON.stringify({
+                                user: username,
+                                password: password
+                            })
+                        })
+                            .done(function(response) {
+                                if (response.error) {
+                                    console.log("Erreur de connexion à Wialon: " + response.error);
+                                } else {
+                                    // Chargement de la carte
+                                    $.post("https://hst-api.wialon.com/wialon/ajax.html?svc=core/search_item", {
+                                        sid: sessionID,
+                                        params: JSON.stringify({
+                                            spec: { itemsType: "avl_unit", propName: "sys_name", propValueMask: "*", sortType: "sys_name" },
+                                            force: 1,
+                                            flags: 4,
+                                            from: 0,
+                                            to: 0
+                                        })
+                                    })
+                                        .done(function(response) {
+                                            if (response.error) {
+                                                console.log("Erreur lors du chargement des éléments Wialon: " + response.error);
+                                            } else {
+                                                var itemId = response.items[0].id;
+
+                                                // Affichage de la carte
+                                                $.post("https://hst-api.wialon.com/wialon/ajax.html?svc=core/show_map", {
+                                                    sid: sessionID,
+                                                    params: JSON.stringify({
+                                                        id: itemId,
+                                                        flags: 1,
+                                                        zoom: mapConfig.zoom,
+                                                        layers: mapConfig.baseLayers
+                                                    })
+                                                })
+                                                    .done(function(response) {
+                                                        $("#mapContainer").html(response.html);
+                                                    })
+                                                    .fail(function() {
+                                                        console.log("Erreur lors de l'affichage de la carte Wialon");
+                                                    });
+                                            }
+                                        })
+                                        .fail(function() {
+                                            console.log("Erreur lors du chargement des éléments Wialon");
+                                        });
+                                }
+                            })
+                            .fail(function() {
+                                console.log("Erreur de connexion à Wialon");
+                            });
+                    })
+                    .fail(function() {
+                        console.log("Erreur lors de la demande de jeton d'accès");
+                    });
+            });
+        </script>
+
+
+
+
+
+
 
         <table>
 

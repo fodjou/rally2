@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coureur;
-use App\Http\Controllers\WialonController;
 use GuzzleHttp\Client;
-
 use Illuminate\Http\Request;
 use Exception;
+use Illuminate\Support\Facades\Auth;
+
 
 class CoureurController extends Controller
 {
@@ -60,9 +60,11 @@ class CoureurController extends Controller
             if ($wialonDriverId !== null) {
                 $nouveauPilote->wialon_driver_id = $wialonDriverId;
                 $nouveauPilote->save();
-            }
 
-            return redirect()->route('dashboard')->with('message', 'Coureur créé avec succès');
+                return redirect()->route('dashboard')->with('message', 'Coureur créé avec succès');
+            } else {
+                return redirect()->back()->withInput()->withErrors(['error' => 'Impossible de trouver l\'ID du pilote dans Wialon. Veuillez vérifier le nom du pilote et réessayer.']);
+            }
         } catch (\Exception $e) {
             dd($e); // Ajout du bloc de débogage pour afficher l'erreur complète
             return redirect()->back()->withInput()->withErrors(['error' => 'Une erreur s\'est produite lors de l\'enregistrement du coureur. Veuillez réessayer.']);
@@ -71,6 +73,8 @@ class CoureurController extends Controller
 
     private function searchDriverInWialon($driverName)
     {
+        $eid = Auth::user()->eid; // Récupérer l'EID de l'utilisateur depuis AuthController ou toute autre source appropriée
+
         $url = "https://hst-api.wialon.com/wialon/ajax.html?svc=core/search_items";
         $params = [
             "spec" => [
@@ -81,7 +85,8 @@ class CoureurController extends Controller
             "force" => 1,
             "flags" => 1,
             "from" => 0,
-            "to" => 0
+            "to" => 0,
+            "sid" => $eid  // Ajout de l'EID dans les paramètres de la requête
         ];
 
         $client = new Client();
@@ -99,12 +104,11 @@ class CoureurController extends Controller
             return $wialonDriverId;
         } else {
             return null;
-        }}
+        }
+    }
 
 
-            public
-            function update(Request $request, $id)
-            {
+    public function update(Request $request, $id) {
 
                 // Récupérer le coureur
                 $coureur = Coureur::find($id);
@@ -138,25 +142,24 @@ class CoureurController extends Controller
                 // Redirection
                 return redirect()->route('creer_pilote');
 
-            }
+    }
 
-            public
-            function delete($id)
-            {
 
-                // Récupérer le coureur
-                $coureur = Coureur::findOrFail($id);
+    public function delete($id) {
+        // Récupérer le coureur
+    $coureur = Coureur::findOrFail($id);
 
-                // Supprimer le coureur
-                $coureur->delete();
+    // Supprimer le coureur
+    $coureur->delete();
 
                 // Message de confirmation
-                $message = "Coureur supprimé avec succès";
+    $message = "Coureur supprimé avec succès";
 
                 // Redirection
-                return redirect()->route('creer_pilote')->with('message', $message);
+    return redirect()->route('creer_pilote')->with('message', $message);
 
-            }
+    }
+}
 
 
-        }
+
