@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 use GuzzleHttp\Client;
 
 class AuthController extends Controller
@@ -38,11 +41,12 @@ class AuthController extends Controller
         if (auth()->attempt($credentials)) {
             // L'utilisateur est connecté avec succès
             $eid = $this->getEidFromWialon();
+            
 
             if ($eid) {
                 // Utilisez l'EID pour effectuer l'authentification avec Wialon
                 // ...
-
+                Session::put('eid', $eid);
                 return redirect()->intended('/dashboard'); // Rediriger vers la page de tableau de bord après connexion réussie
             } else {
                 // Échec de la récupération de l'EID depuis Wialon, rediriger avec un message d'erreur
@@ -58,10 +62,28 @@ class AuthController extends Controller
      {
          $url = 'https://hst-api.wialon.com/wialon/ajax.html?svc=token/login&params={"token":"1f59b5fbd0b702d585a477e3a3d701bcDAAE0189ABDC599F4E1BBA038229A4AB2EE328D8"}';
 
-         $client = new Client();
-         $response = $client->get($url);
-         $json = json_decode($response->getBody(), true);
+         //$client = new Client();
+         //$response = $client->get($url);
 
+        
+
+        $client = new Client([
+            'verify' => false, // Désactiver la vérification du certificat SSL
+        ]);
+        $response = $client->request('GET', 'https://hst-api.wialon.com/wialon/ajax.html', [
+            'query' => [
+                'svc' => 'token/login',
+                'params' => '{"token":"1f59b5fbd0b702d585a477e3a3d701bcDAAE0189ABDC599F4E1BBA038229A4AB2EE328D8"}'
+            ]
+        ]);
+
+    
+
+        
+         $json = json_decode($response->getBody()->getContents(), true);
+        
+
+        
          if (isset($json['eid'])) {
              $eid = $json['eid'];
              return $eid;

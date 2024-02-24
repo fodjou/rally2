@@ -7,6 +7,8 @@ use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+
 
 
 class CoureurController extends Controller
@@ -73,28 +75,52 @@ class CoureurController extends Controller
 
     private function searchDriverInWialon($driverName)
     {
-        $eid = Auth::user()->eid; // Récupérer l'EID de l'utilisateur depuis AuthController ou toute autre source appropriée
+        $eid =  Session::get('eid');
+        ; // Récupérer l'EID de l'utilisateur depuis AuthController ou toute autre source appropriée
 
-        $url = "https://hst-api.wialon.com/wialon/ajax.html?svc=core/search_items";
-        $params = [
-            "spec" => [
-                "itemsType" => "avl_unit",
-                "propName" => "*",
-                "propValueMask" => $driverName
-            ],
-            "force" => 1,
-            "flags" => 1,
-            "from" => 0,
-            "to" => 0,
-            "sid" => $eid  // Ajout de l'EID dans les paramètres de la requête
-        ];
+        // $url = "https://hst-api.wialon.com/wialon/ajax.html?svc=core/search_items";
+        // $params = [
+        //     "spec" => [
+        //         "itemsType" => "avl_unit",
+        //         "propName" => "*",
+        //         "propValueMask" => $driverName
+        //     ],
+        //     "force" => 1,
+        //     "flags" => 1,
+        //     "from" => 0,
+        //     "to" => 0,
+        //     "sid" => $eid  // Ajout de l'EID dans les paramètres de la requête
+        // ];
+        
 
-        $client = new Client();
-        $response = $client->post($url, [
-            'json' => $params
+        $client = new Client([
+            'verify' => false, // Désactiver la vérification du certificat SSL
+        ]);
+        // $response = $client->post($url, [
+        //     'json' => $params
+        // ]);
+
+        $response = $client->request('GET', 'https://hst-api.wialon.com/wialon/ajax.html', [
+            'query' => [
+                'svc' => 'core/search_items',
+                'params' => json_encode([
+                    "spec" => [
+                        "itemsType" => "avl_unit",
+                        "propName" => "sys_name",
+                        "propValueMask" => "*".$driverName."*",
+                        "sortType" => "sys_name",
+                        "propType" => "property"
+                    ],
+                    "force" => 1,
+                    "flags" => 1281,
+                    "from" => 0,
+                    "to" => 0
+                ]),
+                'sid' => $eid
+            ]
         ]);
 
-        $data = json_decode($response->getBody(), true);
+        $data = json_decode($response->getBody()->getContents(), true);
 
         // Analyser la réponse pour récupérer l'ID du pilote correspondant
         $items = $data['items'] ?? [];
