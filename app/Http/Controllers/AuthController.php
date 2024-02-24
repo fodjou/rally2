@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use GuzzleHttp\Client;
 
@@ -55,21 +54,21 @@ class AuthController extends Controller
         }
     }
 
-    public function getEidFromWialon()
-    {
-        $url = 'https://hst-api.wialon.com/wialon/ajax.html?svc=token/login&params={"token":"1f59b5fbd0b702d585a477e3a3d701bcDAAE0189ABDC599F4E1BBA038229A4AB2EE328D8"}';
+     public function getEidFromWialon()
+     {
+         $url = 'https://hst-api.wialon.com/wialon/ajax.html?svc=token/login&params={"token":"1f59b5fbd0b702d585a477e3a3d701bcDAAE0189ABDC599F4E1BBA038229A4AB2EE328D8"}';
 
-        $client = new Client();
-        $response = $client->get($url);
-        $json = json_decode($response->getBody(), true);
+         $client = new Client();
+         $response = $client->get($url);
+         $json = json_decode($response->getBody(), true);
 
-        if (isset($json['eid'])) {
-            $eid = $json['eid'];
-            return $eid;
-        }
+         if (isset($json['eid'])) {
+             $eid = $json['eid'];
+             return $eid;
+         }
 
-        return null;
-    }
+         return null;
+     }
 
 
 

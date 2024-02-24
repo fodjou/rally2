@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 class ResultatController extends Controller
 {
@@ -23,4 +23,14 @@ class ResultatController extends Controller
     public function showSpecia2Result(){
         return view ('resultat_special2');
     }
+
+
+    // fonction pour traiter la speciale 1
+    // fonction pour traiter le lab  1
+    // fonction pour traiter le lab  2
+
+
+    // fonction pour traiter la speciale 2
+    // fonction pour traiter le lab  1
+    // fonction pour traiter le lab  1
 }

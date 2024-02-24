@@ -262,6 +262,29 @@
             </div>
         </div>
 
+{{--        <div id="map"></div>--}}
+
+{{--        <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>--}}
+{{--        <script>--}}
+{{--            document.addEventListener('DOMContentLoaded', function () {--}}
+{{--                const map = L.map('map').setView([4.05, 9.7], 13);--}}
+
+{{--                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {--}}
+{{--                    attribution: '&copy; OpenStreetMap contributors'--}}
+{{--                }).addTo(map);--}}
+
+{{--                const carIcon = L.divIcon({--}}
+{{--                    className: 'emoji-icon',--}}
+{{--                    html: '🚗',--}}
+{{--                    iconSize: [32, 32]--}}
+{{--                });--}}
+
+{{--                L.marker([51.5, -0.09], { icon: carIcon }).addTo(map)--}}
+{{--                    .bindPopup('Hello! This is a car.')--}}
+{{--                    .openPopup();--}}
+{{--            });--}}
+{{--        </script>--}}
+
         <div id="mapContainer"></div>
         <script>
             $(document).ready(function() {
@@ -348,11 +371,6 @@
                     });
             });
         </script>
-
-
-
-
-
 
 
         <table>
