@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('password');
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamp('last_eid_update')->nullable();
         });
     }
 
@@ -27,4 +27,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('users');
     }
+
+
 };
