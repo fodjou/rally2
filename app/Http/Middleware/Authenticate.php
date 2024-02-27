@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Closure;
 use Auth;
@@ -54,7 +55,7 @@ class Authenticate extends Middleware
                 'params' => '{"token":"1f59b5fbd0b702d585a477e3a3d701bcDAAE0189ABDC599F4E1BBA038229A4AB2EE328D8"}'
             ]
         ]);
-       
+
          $json = json_decode($response->getBody()->getContents(), true);
 
          if (isset($json['eid'])) {

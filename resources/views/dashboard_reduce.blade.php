@@ -29,16 +29,15 @@
             </div>
 
             <table>
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Pilotes</th>
-                    <th>Marques</th>
-                    <th>Véhicules</th>
-                    <th>Actions</th>
-                </tr>
-                </thead>
 
+                <thead>
+                <th></th>
+                <th>Pilotes</th>
+                <th>Sponsors</th>
+                <th>Marques</th>
+                <th>Matricules</th>
+                <th>Actions</th>
+                </thead>
                 <tbody>
                 @foreach($coureurs as $coureur)
                     <tr>
@@ -47,8 +46,9 @@
                             <img class="ellipse ellipse2" src="{{ asset('images/'.$coureur->logo) }}">
                         </td>
                         <td>{{ $coureur->nom_conducteur }}</td>
+                        <td>{{ $coureur->sponsors }}</td>
                         <td>{{ $coureur->marque }}</td>
-                        <td>{{ $coureur->nom_vehicule }}</td>
+                        <td>{{ $coureur->matricule}}</td>
                         <td class="actions">
                             <div class="action action1">Début Course</div>
                             <div class="action action2">Fin Course</div>

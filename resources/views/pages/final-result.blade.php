@@ -251,7 +251,7 @@
 <div id="main">
 
  @include('layouts.components.logo')
-   
+
  @include('layouts.components.sidebar')
 
  <div id="box">
@@ -310,107 +310,7 @@
                 </td>
             </tr>
 
-            <tr>
-                <td>
-                    <div class="rang">3</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Cober</span></td>
-                <td> WOLVAGEN</td>
-                <td> LT 705454-X</td>
-                <td>140Km</td>
-                <td>5h 50min 5s</td>
-                <td class="actions">
-                    <div class="action action2">Detail</div>
-                </td>
-            </tr>
 
-            <tr>
-                <td>
-                    <div class="rang">4</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Brian Epee</span></td>
-                <td> BMW</td>
-                <td> LT 705454-X</td>
-                <td>105 Km</td>
-                <td>5h 45min 5s</td>
-                <td class="actions">
-                    <div class="action action2">Detail</div>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="rang">5</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Tinen</span></td>
-                <td> PEUGEOT</td>
-                <td> LT 705454-X</td>
-                <td>105 Km</td>
-                <td>5h 45min 5s</td>
-                <td class="actions">
-                    <div class="action action2">Detail</div>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="rang">6</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Tinen </span></td>
-                <td> PEUGEOT</td>
-                <td> LT 705454-X</td>
-                <td>105 Km</td>
-                <td>5h 45min 5s</td>
-                <td class="actions">
-                    <div class="action action2">Detail</div>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="rang">7</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Tinen </span></td>
-                <td> PEUGEOT</td>
-                <td> LT 705454-X</td>
-                <td>105 Km</td>
-                <td>5h 45min 5s</td>
-                <td class="actions">
-                    <div class="action action2">Detail</div>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="rang">8</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Tinen </span></td>
-                <td> PEUGEOT</td>
-                <td> LT 705454-X</td>
-                <td>105 Km</td>
-                <td>5h 45min 5s</td>
-                <td class="actions">
-                    <div class="action action2">Detail</div>
-                </td>
-            </tr>
             </tbody>
         </table>
     </div>

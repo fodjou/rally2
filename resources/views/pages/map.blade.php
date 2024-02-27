@@ -354,82 +354,35 @@
 
 
         <table>
-
+            <thead>
+            <tr>
+                <th>Rang</th>
+                <th>Nom</th>
+            </tr>
+            </thead>
 
             <tbody>
-            <tr>
-                <td>
-                    <div class="rang">1</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Olivier Ramdam</span></td>
 
-            </tr>
+            @foreach($ranking as $index => $coureur)
 
-            <tr>
-                <td>
-                    <div class="rang">2</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Christelle Wamou</span></td>
-            </tr>
+                <tr>
+                    <td>
+                        <img
+                            class="ellipse ellipse1"
+                            src="{{ asset('images/'.$coureur->image) }}"
+                        >
 
-            <tr>
-                <td>
-                    <div class="rang">3</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Cober</span></td>
+                        <img
+                            class="ellipse ellipse2"
+                            src="{{ asset('images/'.$coureur->logo) }}"
+                        >
+                    </td>
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ $coureur->nom_conducteur }}</td>
+                </tr>
 
-            </tr>
+            @endforeach
 
-            <tr>
-                <td>
-                    <div class="rang">4</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Brian Epee</span></td>
-
-            </tr>
-            <tr>
-                <td>
-                    <div class="rang">5</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Tinen</span></td>
-
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="rang">6</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Tinen </span></td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="rang">7</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Rian Tinen </span></td>
-
-            </tr>
             </tbody>
         </table>
     </div>

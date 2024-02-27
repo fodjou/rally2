@@ -47,9 +47,9 @@ class ResultatController extends Controller
 
 
     function updateRankingSp1($driversPositions,$wialonDriverId) {
+
         $eid =  Session::get('eid');
         // Initialise le client HTTP
-//        $client = new Client();
         $client = new Client([
             'verify' => false, // Désactiver la vérification du certificat SSL
         ]);

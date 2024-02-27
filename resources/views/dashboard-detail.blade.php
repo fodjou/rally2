@@ -268,8 +268,9 @@
             <thead>
             <th></th>
             <th>Pilotes</th>
+            <th>Sponsors</th>
             <th>Marques</th>
-            <th>Véhicules</th>
+            <th>Matricules</th>
             <th>Actions</th>
             </thead>
             @foreach($coureurs as $coureur)
@@ -287,8 +288,9 @@
                         >
                     </td>
                     <td>{{ $coureur->nom_conducteur }}</td>
-                    <td>{{ $coureur->nom_vehicule }}</td>
+                    <td>{{ $coureur->sponsors }}</td>
                     <td>{{ $coureur->marque }}</td>
+                    <td>{{ $coureur->matricule}}</td>
                     <td class="actions">
                         <div class="action action1">Début Course</div>
                         <div class="action action2">Fin Course</div>

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     public function index(){
+//        $coureurs = Coureur::all();
         $coureurs = Coureur::paginate(5);
         return view("dashboard",compact("coureurs"));
     }

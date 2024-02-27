@@ -76,22 +76,7 @@ class CoureurController extends Controller
     private function searchDriverInWialon($driverName)
     {
         $eid =  Session::get('eid');
-        ; // Récupérer l'EID de l'utilisateur depuis AuthController ou toute autre source appropriée
 
-        // $url = "https://hst-api.wialon.com/wialon/ajax.html?svc=core/search_items";
-        // $params = [
-        //     "spec" => [
-        //         "itemsType" => "avl_unit",
-        //         "propName" => "*",
-        //         "propValueMask" => $driverName
-        //     ],
-        //     "force" => 1,
-        //     "flags" => 1,
-        //     "from" => 0,
-        //     "to" => 0,
-        //     "sid" => $eid  // Ajout de l'EID dans les paramètres de la requête
-        // ];
-        
 
         $client = new Client([
             'verify' => false, // Désactiver la vérification du certificat SSL

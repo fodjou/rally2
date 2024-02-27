@@ -81,7 +81,7 @@
                     <td>{{ $coureur->nom_conducteur }}</td>
                     <td>{{ $coureur->sponsors }}</td>
                     <td>{{ $coureur->marque }}</td>
-                    <td>{{ $coureur->immatriculation}}</td>
+                    <td>{{ $coureur->matricule}}</td>
                     <td class="actions">
                         <div class="action action1">Début Course</div>
                         <div class="action action2">Fin Course</div>
