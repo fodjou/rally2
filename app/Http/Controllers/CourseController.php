@@ -21,7 +21,6 @@ class CourseController extends Controller
         return redirect()->back();
     }
 
-
     // debut de la course recuperer l'heure de depart de chaque joueur
 
 //    public function getStartTime() {
@@ -99,7 +98,6 @@ class CourseController extends Controller
 
         $eid =  Session::get('eid');
         // Initialise le client HTTP
-//        $client = new Client();
         $client = new Client([
             'verify' => false, // Désactiver la vérification du certificat SSL
         ]);
@@ -156,44 +154,37 @@ class CourseController extends Controller
 
         $ranking = [];
 
-        // On ordonne par heure de départ croissante
+        // Tri par heure de départ
         usort($driversPositions, function($a, $b) {
             return $a['pos']['t'] - $b['pos']['t'];
         });
 
         foreach($driversPositions as $driverPosition) {
 
-            $driverId = $driverPosition['driver_id'];
-            $x = $driverPosition['pos']['x'];
-            $y = $driverPosition['pos']['y'];
+            $wialonDriverId = $driverPosition['wialonDriverId'];
             $startTime = $driverPosition['pos']['t'];
             $speed = $driverPosition['pos']['s'];
 
-            // Calcul du temps écoulé depuis le départ
+            // Temps écoulé depuis le départ
             $elapsedTime = time() - $startTime;
 
-            // Calcul de la distance parcourue
-            $distance = $elapsedTime * $speed;
+            // Vitesse moyenne
+            $averageSpeed = $speed / $elapsedTime;
 
-            $ranking[$driverId] = [
-                'position' => [
-                    'x' => $x,
-                    'y' => $y
-                ],
-                'distance' => $distance
+            $ranking[$wialonDriverId] = [
+                'averageSpeed' => $averageSpeed
             ];
 
         }
 
-        // On trie le classement par distance décroissante
+        // Tri par vitesse moyenne décroissante
         usort($ranking, function($a, $b) {
-            return $b['distance'] - $a['distance'];
+            return $b['averageSpeed'] - $a['averageSpeed'];
         });
 
         return $ranking;
 
     }
-
     // Le but est de savoir qui est le plus rapide
 
 
