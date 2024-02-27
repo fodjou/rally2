@@ -62,10 +62,6 @@ class AuthController extends Controller
      {
          $url = 'https://hst-api.wialon.com/wialon/ajax.html?svc=token/login&params={"token":"1f59b5fbd0b702d585a477e3a3d701bcDAAE0189ABDC599F4E1BBA038229A4AB2EE328D8"}';
 
-         //$client = new Client();
-         //$response = $client->get($url);
-
-        
 
         $client = new Client([
             'verify' => false, // Désactiver la vérification du certificat SSL
@@ -76,14 +72,9 @@ class AuthController extends Controller
                 'params' => '{"token":"1f59b5fbd0b702d585a477e3a3d701bcDAAE0189ABDC599F4E1BBA038229A4AB2EE328D8"}'
             ]
         ]);
-
-    
-
-        
+       
          $json = json_decode($response->getBody()->getContents(), true);
-        
 
-        
          if (isset($json['eid'])) {
              $eid = $json['eid'];
              return $eid;
