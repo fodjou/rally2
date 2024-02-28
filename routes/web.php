@@ -36,7 +36,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, "index"])->name("dashboard");
     Route::get('/dashboard-detail', [DashboardController::class, "show"])->name("dashboard-detail");
     Route::get('/show_reduce', [DashboardController::class, "showReduce"])->name("show_reduce")  ;// visualiser le dashboard sans slidebar
-    Route::get('/maps', [DashboardController::class, "showMap"])->name("Map");
 
     // Routes du CoureurController
     Route::get('/coureurs/create', [CoureurController::class, 'create'])->name('coureurs.create');
@@ -58,7 +57,8 @@ Route::middleware(['auth'])->group(function () {
 
     // routes/web.php
 
-    Route::get('/course', 'CourseController@index')->name('course.index');
+    Route::get('/maps', [coursecontroller::class, 'index'])->name('maps');
+
     Route::get('/course', [CourseController::class, "course.index"])->name('course.action');
 
 
