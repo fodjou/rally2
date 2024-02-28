@@ -53,16 +53,14 @@ Route::middleware(['auth'])->group(function () {
     // Affiche les specials results
     Route::get('/Resultat-special', [ResultatController::class, 'showSpecialResult'])->name('specialResult');
     Route::get('/resulat_special2', [ResultatController::class, "showSpecia2Result"])->name('special2Result');
-// route du Couceur
+
+    // route du Couceur
 
     // routes/web.php
 
     Route::get('/maps', [coursecontroller::class, 'index'])->name('maps');
 
     Route::get('/course', [CourseController::class, "course.index"])->name('course.action');
-
-
-
 
 });
 
