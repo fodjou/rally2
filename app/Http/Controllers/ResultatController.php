@@ -80,7 +80,6 @@ class ResultatController extends Controller
 
         // Définition du point de passage de la spéciale 1
         $checkpointSp1 = [
-            'id' => 1,
             'lat' => 6,
             'lng' => 1   ];
 
@@ -173,7 +172,6 @@ class ResultatController extends Controller
 
         // Définition du point de passage de la spéciale 1
         $checkpointSp2 = [
-            'id' => 1,
             'lat' => 6,
             'lng' => 1   ];
 
