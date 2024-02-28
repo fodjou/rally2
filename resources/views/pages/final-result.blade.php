@@ -277,41 +277,71 @@
             <th>Actions</th>
             </thead>
 
+{{--            <tbody>--}}
+
+{{--            <tr>--}}
+{{--                <td><img alt="" class="first" src="{{ asset('images/Groupe 601.png') }}"></td>--}}
+{{--                <td>--}}
+{{--                    <div class="ellipse ellipse1"></div>--}}
+{{--                    <div class="ellipse ellipse2"></div>--}}
+{{--                    <span class="name">Olivier Ramdam</span></td>--}}
+{{--                <td> OPEL</td>--}}
+{{--                <td> LT 705454-X</td>--}}
+{{--                <td style="color: #79A07D">105 Km</td>--}}
+{{--                <td style="color: #79A07D">4h 45min 5s</td>--}}
+{{--                <td class="actions">--}}
+{{--                    <div class="action action1">Winner Detail</div>--}}
+{{--                </td>--}}
+{{--            </tr>--}}
+
+{{--            <tr>--}}
+{{--                <td>--}}
+{{--                    <div class="rang">2</div>--}}
+{{--                </td>--}}
+{{--                <td>--}}
+{{--                    <div class="ellipse ellipse1"></div>--}}
+{{--                    <div class="ellipse ellipse2"></div>--}}
+{{--                    <span class="name">Christelle Wamou</span></td>--}}
+{{--                <td> BUGATI</td>--}}
+{{--                <td> LT 705454-X</td>--}}
+{{--                <td>125 Km</td>--}}
+{{--                <td>5h 45min 5s</td>--}}
+{{--                <td class="actions">--}}
+{{--                    <div class="action action2">Detail</div>--}}
+{{--                </td>--}}
+{{--            </tr>--}}
+
+
+{{--            </tbody>--}}
+
+
             <tbody>
-            <tr>
-                <td><img alt="" class="first" src="{{ asset('images/Groupe 601.png') }}"></td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Olivier Ramdam</span></td>
-                <td> OPEL</td>
-                <td> LT 705454-X</td>
-                <td style="color: #79A07D">105 Km</td>
-                <td style="color: #79A07D">4h 45min 5s</td>
-                <td class="actions">
-                    <div class="action action1">Winner Detail</div>
-                </td>
-            </tr>
-
-            <tr>
-                <td>
-                    <div class="rang">2</div>
-                </td>
-                <td>
-                    <div class="ellipse ellipse1"></div>
-                    <div class="ellipse ellipse2"></div>
-                    <span class="name">Christelle Wamou</span></td>
-                <td> BUGATI</td>
-                <td> LT 705454-X</td>
-                <td>125 Km</td>
-                <td>5h 45min 5s</td>
-                <td class="actions">
-                    <div class="action action2">Detail</div>
-                </td>
-            </tr>
-
-
+            @foreach($ranking as $index => $coureur)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>
+                        <div class="ellipse ellipse1"></div>
+                        <div class="ellipse ellipse2"></div>
+                        <span class="name">{{ $coureur['name'] }}</span>
+                    </td>
+                    <td>{{ $coureur['marque'] }}</td>
+                    <td>{{ $coureur['matricule'] }}</td>
+                    <td class="actions">
+                        @if($index === 0)
+                        <td style="color: #79A07D">{{ $coureur['totalKm'] }} Km</td>
+                        <td style="color: #79A07D">{{ formatTotalTime($coureur['totalTime']) }}</td>
+                            <div class="action action1">Winner Detail</div>
+                        @else
+                        <td >{{ $coureur['totalKm'] }} Km</td>
+                        <td >{{ formatTotalTime($coureur['totalTime']) }}</td>
+                            <div class="action action{{ $index + 1 }}">detail</div>
+                        @endif
+                    </td>
+                </tr>
+            @endforeach
             </tbody>
+
+
         </table>
     </div>
 

@@ -360,31 +360,16 @@
                 <th>Nom</th>
             </tr>
             </thead>
-
             <tbody>
-
             @foreach($ranking as $index => $coureur)
-
                 <tr>
-                    <td>
-                        <img
-                            class="ellipse ellipse1"
-                            src="{{ asset('images/'.$coureur->image) }}"
-                        >
-
-                        <img
-                            class="ellipse ellipse2"
-                            src="{{ asset('images/'.$coureur->logo) }}"
-                        >
-                    </td>
                     <td>{{ $index + 1 }}</td>
-                    <td>{{ $coureur->nom_conducteur }}</td>
+                    <td>{{ $coureur['nom_conducteur'] }}</td>
                 </tr>
-
             @endforeach
-
             </tbody>
         </table>
+
     </div>
 
 </div>

@@ -205,7 +205,6 @@
 
         .action {
             width: 180px;
-            height: 35px;
             top: 15px;
             display: flex;
             position: relative;
@@ -559,7 +558,7 @@
 
 
 
-{{--                        <a href="{{ route('Map') }}">--}}
+                        <a href="{{ route('Map') }}">
                             <div
                             class="action"
                             id="action1"
@@ -567,7 +566,7 @@
                             style="background-color: #585859">
                             Début Course
                         </div>
-{{--                        </a>--}}
+                        </a>
 
                         <div
                             class="action"

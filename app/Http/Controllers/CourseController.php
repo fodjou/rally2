@@ -9,9 +9,16 @@ use Illuminate\Support\Facades\Session;
 
 class CourseController extends Controller
 {
-    public function index()
+    public function index($wialonDriverId)
     {
-        return view('pages.map');
+        // Appel de la fonction pour récupérer les positions des conducteurs
+        $driversPositions = $this->getDriversLocations($wialonDriverId);
+
+        // Calculer le classement des conducteurs à partir des positions
+        $ranking = $this->getDriversRanking($driversPositions);
+
+        // Rendre la vue avec les données du classement
+        return view('pages.map', compact('ranking'));
     }
 
     public function action(Request $request)
@@ -22,72 +29,54 @@ class CourseController extends Controller
         return redirect()->back();
     }
 
-    // debut de la course recuperer l'heure de depart de chaque joueur
-
-//    public function getStartTime() {
-//
-//
-//        $response = $client->get('https://hst-api.wialon.com/wialon/ajax.html', [
-//            'query' => [
-//                'svc' => 'core/search_items',
-//                'params' => '{"spec":{"itemsType":"avl_unit","propName":"sys_phone_number,sys_id","propValueMask":"*","sortType":"sys_name","propType":"property"},"force":1,"flags":1281,"from":0,"to":0}',
-//                'sid' => 'YOUR_WIALON_SID',
-//            ]
-//        ]);
-//
-//    }
-
     // recuperer les coordonnees des joueurs en temps reel pour la map
 
-    function getDriversLocations( $wialonDriverId) {
+    public function getDriversLocations($wialonDriverId)
+    {
         $eid =  Session::get('eid');
         // Initialise le client HTTP
         $client = new Client([
             'verify' => false, // Désactiver la vérification du certificat SSL
         ]);
 
+        $response = $client->request('GET', 'https://hst-api.wialon.com/wialon/ajax.html', [
+            'query' => [
+                'svc' => 'core/search_items',
+                'params' => json_encode([
+                    "spec" => [
+                        "itemsType" => "avl_unit",
+                        "propName" => "sys_id",
+                        "propValueMask" => "*".$wialonDriverId."*",
+                        "sortType" => "sys_id",
+                        "propType" => "property"
+                    ],
+                    "force" => 1,
+                    "flags" => 1281,
+                    "from" => 0,
+                    "to" => 0
+                ]),
+                'sid' => $eid
+            ]
+        ]);
 
-            $response = $client->request('GET', 'https://hst-api.wialon.com/wialon/ajax.html', [
-                'query' => [
-                    'svc' => 'core/search_items',
-                    'params' => json_encode([
-                        "spec" => [
-                            "itemsType" => "avl_unit",
-                            "propName" => "sys_id",
-                            "propValueMask" => "*".$wialonDriverId."*",
-                            "sortType" => "sys_id",
-                            "propType" => "property"
-                        ],
-                        "force" => 1,
-                        "flags" => 1281,
-                        "from" => 0,
-                        "to" => 0
-                    ]),
-                    'sid' => $eid
-                ]
-            ]);
+        $data = json_decode($response->getBody()->getContents(), true);
 
-            $data = json_decode($response->getBody()->getContents(), true);
-
-            // Analyser la réponse pour récupérer l'ID du pilote correspondant
+        // Analyser la réponse pour récupérer les positions des conducteurs
         $items = $data['items'] ?? [];
 
+        $driversPositions = [];
         if (!empty($items)) {
-            $driverData = $items[0];
-            $wialonDriverX = $driverData['pos']['x'];
-            $wialonDriverY = $driverData['pos']['y'];
-
-            // Retourner un tableau avec x et y
-            return [
-                'x' => $wialonDriverX,
-                'y' => $wialonDriverY
-            ];
-
+            foreach ($items as $driverData) {
+                $wialonDriverX = $driverData['pos']['x'];
+                $wialonDriverY = $driverData['pos']['y'];
+                $driversPositions[] = [
+                    'x' => $wialonDriverX,
+                    'y' => $wialonDriverY
+                ];
+            }
         }
 
-        // Pas de position trouvée
-        return [];
-
+        return $driversPositions;
     }
 
 
@@ -151,51 +140,38 @@ class CourseController extends Controller
 
 
     function getDriversRanking($driversPositions) {
-
-        $coureurs = Coureur::all();
-
         $ranking = [];
 
-        // Tri par heure de départ
-        usort($driversPositions, function($a, $b) {
-            return $a['pos']['t'] - $b['pos']['t'];
-        });
-
-
         foreach($driversPositions as $driverPosition) {
-
-
             $wialonDriverId = $driverPosition['wialonDriverId'];
+
             // Récupérer le coureur correspondant
-            $coureur = $coureurs->first(function($c) use ($wialonDriverId) {
-                return $c->wialon_driver_id == $wialonDriverId;
-            });
-            $startTime = $driverPosition['pos']['t'];
-            $speed = $driverPosition['pos']['s'];
-            // Récupérer le km parcouru précédemment
-            $totalKm = isset($totalDistance[$wialonDriverId]) ? $totalDistance[$wialonDriverId] : 0;
-            $totalTime = isset($totalTime[$wialonDriverId]) ? $totalTime[$wialonDriverId] : 0;
+            $coureur = Coureur::where('wialon_driver_id', $wialonDriverId)->first();
 
-            // Incrémenter le km parcouru
-            // Temps écoulé depuis le départ
-            $elapsedTime = time() - $startTime;
-            $totalTime[$wialonDriverId] += $elapsedTime;
-            $kmTravelled = $speed * $elapsedTime;
-            $totalKm += $kmTravelled;
+            if ($coureur) {
+                $startTime = $driverPosition['pos']['t'];
+                $speed = $driverPosition['pos']['s'];
 
-            // Enregistrer le km total
-            $totalDistance[$wialonDriverId] = $totalKm;
+                // Calculer le temps écoulé depuis le départ en secondes
+                $elapsedTime = time() - $startTime;
 
-            // Vitesse moyenne
-            $averageSpeed = $speed / $elapsedTime;
+                // Calculer le kilométrage total parcouru
+                $kmTravelled = $speed * $elapsedTime;
+                $totalKm = $coureur->total_km + $kmTravelled;
 
-            $ranking[$wialonDriverId] = [
-                'averageSpeed' => $averageSpeed,
-                'totalKm' => $totalKm,
-                'totalTime' => $totalTime[$wialonDriverId]
-            ];
+                // Mettre à jour le temps total de parcours
+                $totalTime = $coureur->total_time + $elapsedTime;
 
+                $ranking[$wialonDriverId] = [
+                    'name' => $coureur->nom_conducteur,
+                    'marque' => $coureur->marque,
+                    'matricule' => $coureur->matricule,
+                    'totalKm' => $totalKm,
+                    'totalTime' => $totalTime
+                ];
+            }
         }
+
 
         // Tri par vitesse moyenne décroissante
         usort($ranking, function($a, $b) {
@@ -206,13 +182,7 @@ class CourseController extends Controller
     }
 
 
-    public function inde()
-    {
-        // Récupérer le ranking depuis la BDD
-        $ranking = Coureur::orderBy('points', 'desc')->get();
 
-        return view('ranking', ['ranking' => $ranking]);
-    }
 
 
 

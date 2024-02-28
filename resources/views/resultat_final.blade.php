@@ -270,7 +270,7 @@
 
             <tr>
                 <td>Vehicules</td>
-                <td>{{$coureur->nom_vehicule}}</td>
+                <td>{{$coureur->matricule}}</td>
             </tr>
 
             <tr>
