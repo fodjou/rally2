@@ -2,7 +2,18 @@
 
 @section('title', 'Créer Pilote')
 
+<style>
+    @media screen and (min-width: 270px) and (max-width : 450px){
+        #box{
+            width: 822px;
+            height: 251px;
+        }
 
+        #subtitle{
+            width: 55%;
+        }
+    }
+</style>
 {{--<style>--}}
 {{--  --}}
 {{--    #right {--}}
@@ -42,11 +53,11 @@
             <img id="sublogo" class="logo" alt="" src="{{ asset('images/Groupe 480.png') }}">
             <p class="title" id="title2"> Liste des pilotes </p>
         </div>
-        <div id="right">
-            <div class="small-box" id="refresh-box">
+        <div id="right" style="display:flex;">
+            <div class="small-box" id="refresh-box" style="display: flex; justify-content: center">
                 <img src="{{ asset('images/rotate-cw(2).png') }}" alt="Image 1">
             </div>
-            <div class="small-box" id="close-box">
+            <div class="small-box" id="close-box" style="display: flex; justify-content: center">
                 <a href="{{route('dashboard-detail')}}">
                     <img src= "{{ asset('images/expand(1).png') }}" alt="Image 2">
                 </a>

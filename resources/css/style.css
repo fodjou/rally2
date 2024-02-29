@@ -118,12 +118,14 @@ h3 {
 }
 .menu-item {
     display: flex;
-    align-items: center;
-    background-color: #585859;
+    justify-content: center;
+    background-color: #5F5959;
     border-radius: 25px;
     /*margin-bottom: 25px;*/
-    max-height: 38px;
+    /*max-height: 38px;*/
     width: 200px;
+    text-align: center;
+    font-size: 24px;
     height: 260px;
     margin: 15px;
 }
@@ -191,6 +193,7 @@ h3 {
     opacity: 1;
     margin-top: 20%;
 }
+
 
 /*bas de page */
 #sublogo {
