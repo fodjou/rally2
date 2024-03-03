@@ -41,7 +41,7 @@ class AuthController extends Controller
         if (auth()->attempt($credentials)) {
             // L'utilisateur est connecté avec succès
             $eid = $this->getEidFromWialon();
-            
+
 
             if ($eid) {
                 // Utilisez l'EID pour effectuer l'authentification avec Wialon
@@ -72,7 +72,7 @@ class AuthController extends Controller
                 'params' => '{"token":"1f59b5fbd0b702d585a477e3a3d701bcDAAE0189ABDC599F4E1BBA038229A4AB2EE328D8"}'
             ]
         ]);
-       
+
          $json = json_decode($response->getBody()->getContents(), true);
 
          if (isset($json['eid'])) {

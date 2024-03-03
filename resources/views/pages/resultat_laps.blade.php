@@ -111,6 +111,24 @@
             position: absolute;
         }
 
+
+         #right {
+             display: flex;
+         }
+
+        .small-box {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+        }
+
+        .small-box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+
         .small-box {
             width: 35px;
             height: 35px;
@@ -295,9 +313,16 @@
                     <img id="sublogo" class="logo" alt="" src="{{ asset('images/Groupe 480.png') }}">
                     <p class="title" id="title2"> Evolution des laps </p>
                 </div>
-                <div id="right">
-                    <div class="small-box" id="refresh-box"></div>
-                    <div class="small-box" id="close-box"></div>
+                <div id="right" style="display:flex;">
+                    <div class="small-box" id="refresh-box" style="display: flex; justify-content: center">
+                        <img src="{{ asset('images/rotate-cw(2).png') }}" alt="Image 1">
+                    </div>
+                    <div class="small-box" id="close-box" style="display: flex; justify-content: center">
+                        <a href="{{route('dashboard-detail')}}">
+                            <img src= "{{ asset('images/expand(1).png') }}" alt="Image 2">
+                        </a>
+
+                    </div>
                 </div>
             </div>
 

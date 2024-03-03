@@ -3,16 +3,13 @@
             <img id=profil alt="" src="{{ asset('images/profil_picture.png') }}">
             <h2 class="ti"> Bienvenue</h2>
             <h2 class="ti"><strong>{{Auth::user()->name .' '. Auth::user()->eid}} </strong></h2>
-            <div id="logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                 <hr>
-                <img id="11" class="logo" alt="" src="{{ asset('images/sign_out.png') }}">
-                <h4>Deconnexion!</h4>
+                <div id="logout" onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="display: flex; justify-content: center">
+                    <img id="11" class="logo" alt="" src="{{ asset('images/sign_out.png') }}" style="margin-right: 10px"> Deconnexion!
             </div>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-
-
 
         </header>
         <div class="menu-item green-bg" onclick="location.href='{{ route('dashboard') }}'">
@@ -32,13 +29,13 @@
             <img id="lap" class="logo" alt=""  src="{{ asset('images/lap_result.png') }}">
             <h3>resultat lap</h3>
         </div>
-        <div class="menu-item" onclick="location.href='{{ route('Map') }}'">
+        <div class="menu-item" onclick="location.href='{{ route('maps') }}'">
             <img id="time" class="logo" alt="" src="{{ asset('images/compteur_vitesse.png') }}">
             <h3>real Time</h3>
         </div>
         <div class="menu-item" onclick="location.href='{{ route('resultat_special') }}'">
             <img id="special"class="logo" alt="" src="{{ asset('images/special_result.png') }}">
-            <h3>Resultat Special</h3>
+            <h3> Resultat Special </h3>
         </div>
 
         <div id="down">

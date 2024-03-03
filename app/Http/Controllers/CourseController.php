@@ -9,17 +9,21 @@ use Illuminate\Support\Facades\Session;
 
 class CourseController extends Controller
 {
-    public function index($wialonDriverId)
+    public function index()
     {
-        // Appel de la fonction pour récupérer les positions des conducteurs
+        // Récupérer l'ID du conducteur depuis l'API de Wialon
+        $coureurController = new CoureurController();
+        $wialonDriverId = $coureurController->searchDriverInWialon();
+        // Appeler la fonction pour récupérer les positions des conducteurs
         $driversPositions = $this->getDriversLocations($wialonDriverId);
 
         // Calculer le classement des conducteurs à partir des positions
         $ranking = $this->getDriversRanking($driversPositions);
 
-        // Rendre la vue avec les données du classement
-        return view('pages.map', compact('ranking'));
+        // Passer la variable $wialonDriverId à la vue
+        return view('pages.map', compact('ranking', 'wialonDriverId'));
     }
+
 
     public function action(Request $request)
     {
@@ -172,14 +176,12 @@ class CourseController extends Controller
             }
         }
 
-
-        // Tri par vitesse moyenne décroissante
-        usort($ranking, function($a, $b) {
-            return $b['averageSpeed'] - $a['averageSpeed'];
-        });
+        // Trier le classement par kilométrage total parcouru
+        arsort($ranking);
 
         return $ranking;
     }
+
 
 
 

@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, "index"])->name("dashboard");
     Route::get('/dashboard-detail', [DashboardController::class, "show"])->name("dashboard-detail");
     Route::get('/show_reduce', [DashboardController::class, "showReduce"])->name("show_reduce")  ;// visualiser le dashboard sans slidebar
+    Route::get('/maps', [DashboardController::class, "showMap"])->name("Map");
 
     // Routes du CoureurController
     Route::get('/coureurs/create', [CoureurController::class, 'create'])->name('coureurs.create');
@@ -46,21 +47,22 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/coureurs/{coureur}', [CoureurController::class, 'destroy'])->name('coureurs.destroy');
 
     // Affiche le top 8
-    Route::get('/Coureurs/top-final', [ResultatController::class, 'showFinalResult'])->name('coureurs.top-final');
+    Route::get('/Coureurs/top-final', [coursecontroller::class, 'index'])->name('coureurs.top-final');
     // Affiche le laps Resultat
     Route::get('/Resultat-laps', [ResultatController::class, 'showLapsResult'])->name('lapsResult');
     Route::get('/resulat_lap2', [ResultatController::class, "showLaps2Result"])->name('laps2Result');
     // Affiche les specials results
     Route::get('/Resultat-special', [ResultatController::class, 'showSpecialResult'])->name('specialResult');
     Route::get('/resulat_special2', [ResultatController::class, "showSpecia2Result"])->name('special2Result');
-
-    // route du Couceur
+// route du Couceur
 
     // routes/web.php
 
     Route::get('/maps', [coursecontroller::class, 'index'])->name('maps');
-
     Route::get('/course', [CourseController::class, "course.index"])->name('course.action');
+
+
+
 
 });
 

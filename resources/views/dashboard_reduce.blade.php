@@ -2,6 +2,22 @@
 
 @section('title', 'dashboard_reduce')
 
+@section('styles')
+    <style>
+        .small-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: white;
+        }
+
+        .small-box img {
+            max-width: 100%;
+            max-height: 100%;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div id="main">
 
@@ -33,7 +49,6 @@
                 <thead>
                 <th></th>
                 <th>Pilotes</th>
-                <th>Sponsors</th>
                 <th>Marques</th>
                 <th>Matricules</th>
                 <th>Actions</th>
@@ -46,7 +61,6 @@
                             <img class="ellipse ellipse2" src="{{ asset('images/'.$coureur->logo) }}">
                         </td>
                         <td>{{ $coureur->nom_conducteur }}</td>
-                        <td>{{ $coureur->sponsors }}</td>
                         <td>{{ $coureur->marque }}</td>
                         <td>{{ $coureur->matricule}}</td>
                         <td class="actions">
@@ -65,18 +79,4 @@
     </div>
 @endsection
 
-@section('styles')
-    <style>
-        .small-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: white;
-        }
 
-        .small-box img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-    </style>
-@endsection
