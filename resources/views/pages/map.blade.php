@@ -230,6 +230,10 @@
             left: 20px;
             bottom: 15px;
         }
+
+        #map {
+            margin-left: 500px;
+        }
     </style>
 
     @section('content')
@@ -261,34 +265,46 @@
                 </div>
             </div>
         </div>
+
         <div id="map">
-            <!-- Insérer l'iframe avec le lien de la carte Wialon -->
-            <iframe src="https://hosting.camtrack.net/locator/index.html?t=1f59b5fbd0b702d585a477e3a3d701bcB7448FE492F9C24812962960147A90D4D6BB8F34&map=gurtam_maps" width="700" height="400"></iframe>
+
+            <iframe src="https://hosting.wialon.com/locator/index.html?t=1f59b5fbd0b702d585a477e3a3d701bc29E234363E5F00DC031F565344712E0BFE5B059A&map=gurtam_maps" width="100%" height="500" frameborder="0"></iframe>
 
         </div>
 
 
+
         <table>
-            <thead>
-            <tr>
-                <th>Rang</th>
-                <th>Nom</th>
-            </tr>
-            </thead>
             <tbody>
-            @foreach($ranking as $index => $coureur)
+            @php
+                $rank = 1;
+            @endphp
+            @foreach ($ranking as $coureur)
                 <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>{{ $coureur['nom_conducteur'] }}</td>
+                    <td>
+                        <div class="rang">{{ $rank }}</div>
+                    </td>
+                    <td>
+                        <img
+                            class="ellipse ellipse1"
+                            src="{{ asset('images/'.$coureur->image) }}"
+                        >
+
+                        <img
+                            class="ellipse ellipse2"
+                            src="{{ asset('images/'.$coureur->logo) }}"
+                        >
+                        <span class="name"> {{ $coureur->nom_conducteur }}</span>
+                    </td>
                 </tr>
+                @php
+                    $rank++;
+                @endphp
             @endforeach
             </tbody>
-
         </table>
 
     </div>
 
 </div>
     @endsection
-
-

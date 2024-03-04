@@ -1,38 +1,23 @@
 <?php
 
+
 namespace App\Http\Controllers;
 
-use App\Models\Coureur;
-use Illuminate\Http\Request;
-use GuzzleHttp\Client;
-use Illuminate\Support\Facades\Session;
+    use GuzzleHttp\Client;
+    use Illuminate\Http\Request;
+    use App\Models\Coureur;
+    use Illuminate\Support\Facades\Session;
 
-class CourseController extends Controller
+    // Assurez-vous d'importer le modèle Coureur si nécessaire
+
+class MapController extends Controller
 {
-    public function index(Request $request)
-    {
-        // Récupérer l'ID du véhicule à partir de la requête HTTP
-        $wialonDriverId = $request->input('wialonDriverId');
-
-        // Appel de la fonction pour récupérer les positions des conducteurs
-        $driversPositions = $this->getDriversLocations($wialonDriverId);
-
-        // Calculer le classement des conducteurs à partir des positions
-        $ranking = $this->getDriversRanking($driversPositions);
-
-        // Rendre la vue avec les données du classement
-        return view('pages.map', compact('ranking'));
-    }
-
-    public function action(Request $request)
-    {
-        // Mettre à jour la variable de session
-        session()->put('selectedAction', $request->input('action'));
-
-        return redirect()->back();
-    }
-
-    // recuperer les coordonnees des joueurs en temps reel pour la map
+//    public function index()
+//    {
+//
+//        // Retournez la vue avec le classement initial
+//        return view('pages.map', compact('ranking'));
+//    }
 
     public function getDriversLocations($wialonDriverId)
     {
@@ -122,7 +107,7 @@ class CourseController extends Controller
 
         if (!empty($items)) {
             $driverData = $items[0];
-           $wialonDriverX = $driverData['pos']['x'];
+            $wialonDriverX = $driverData['pos']['x'];
             $wialonDriverY = $driverData['pos']['y'];
             $wialonDriverT = $driverData['pos']['t']; // Temps t
             $wialonDriverS = $driverData['pos']['s'];// Vitesse S
@@ -142,79 +127,42 @@ class CourseController extends Controller
     }
 
 
-    public function getDriversRanking($driversPositions) {
+    function getDriversRanking($driversPositions)
+    {
         $ranking = [];
 
-        foreach($driversPositions as $driverPosition) {
-            if (isset($driverPosition['pos']) && is_array($driverPosition['pos'])) {
-                $startTime = $driverPosition['pos']['t'] ?? 0;
-                $speed = $driverPosition['pos']['s'] ?? 0;
+        foreach ($driversPositions as $driverPosition) {
+            $wialonDriverId = $driverPosition['wialonDriverId'];
+
+            // Récupérer le coureur correspondant
+            $coureur = Coureur::where('wialon_driver_id', $wialonDriverId)->first();
+
+            if ($coureur) {
+                $startTime = $driverPosition['pos']['t'];
+                $speed = $driverPosition['pos']['s'];
 
                 // Calculer le temps écoulé depuis le départ en secondes
                 $elapsedTime = time() - $startTime;
 
                 // Calculer le kilométrage total parcouru
                 $kmTravelled = $speed * $elapsedTime;
+                $totalKm = $coureur->total_km + $kmTravelled;
 
-                // Calculer l'ID du conducteur
-                $wialonDriverId = $driverPosition['wialonDriverId'];
+                // Mettre à jour le temps total de parcours
+                $totalTime = $coureur->total_time + $elapsedTime;
 
-                // Récupérer le coureur correspondant
-                $coureur = Coureur::where('wialon_driver_id', $wialonDriverId)->first();
-
-                if ($coureur) {
-                    // Mettre à jour le total des kilomètres parcourus et le temps total
-                    $totalKm = $coureur->total_km + $kmTravelled;
-                    $totalTime = $coureur->total_time + $elapsedTime;
-
-                    // Ajouter les détails du coureur au classement
-                    $ranking[$wialonDriverId] = [
-                        'name' => $coureur->nom_conducteur,
-                        'marque' => $coureur->marque,
-                        'matricule' => $coureur->matricule,
-                        'totalKm' => $totalKm,
-                        'totalTime' => $totalTime
-                    ];
-                }
+                $ranking[$wialonDriverId] = [
+                    'name' => $coureur->nom_conducteur,
+                    'marque' => $coureur->marque,
+                    'matricule' => $coureur->matricule,
+                    'totalKm' => $totalKm,
+                    'totalTime' => $totalTime
+                ];
             }
         }
 
-         // Tri par vitesse moyenne décroissante
-        usort($ranking, function($a, $b) {
-            return $b['averageSpeed'] - $a['averageSpeed'];
-        });
+        // Trier le classement par kilométrage total parcouru
+        arsort($ranking);
 
         return $ranking;
-    }
-
-
-
-
-
-
-
-
-        // Le but est de savoir qui est le plus rapide
-
-
-    // reupere les distances parcouruent de chacun
-        // calculer la distance entre
-
-
-
-
-
-    // fin de la course recuperer l'heure d'arrivee
-    public function getEndTime() {
-
-    }
-
-
-}
-
-
-
-
-
-
-
+    }}
