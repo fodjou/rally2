@@ -170,6 +170,76 @@ class CoureurController extends Controller
     return redirect()->route('creer_pilote')->with('message', $message);
 
     }
+
+
+    // enregistrer les conducteurs de wialon
+
+
+    public function register()
+    {
+        $eid = Session::get('eid');
+        // Initialise le client HTTP
+        $client = new Client([
+            'verify' => false, // Désactiver la vérification du certificat SSL
+        ]);
+
+        $response = $client->request('GET', 'https://hst-api.wialon.com/wialon/ajax.html', [
+            'query' => [
+                'svc' => 'core/search_items',
+                'params' => json_encode([
+                    "spec" => [
+                        "itemsType" => "avl_unit",
+                        "propName" => "sys_id",
+                        "propValueMask" => "*",
+                        "sortType" => "sys_id",
+                        "propType" => "property"
+                    ],
+                    "force" => 1,
+                    "flags" => 1281,
+                    "from" => 0,
+                    "to" => 0
+                ]),
+                'sid' => $eid
+            ]
+        ]);
+
+        $data = json_decode($response->getBody()->getContents(), true);
+        // Vérifiez si des données ont été renvoyées avec succès
+        if(isset($data['items']) && is_array($data['items'])) {
+            foreach($data['items'] as $item) {
+                $nomConducteur = $item['nm'] ?? '';
+                $wialonDriverId = $item['id'] ?? '';
+                // Vérifiez si le nom du conducteur et l'ID Wialon sont présents
+                if($nomConducteur && $wialonDriverId) {
+                    // Enregistrez le conducteur dans la table Coureurs
+                    $this->enregistrerConducteur($nomConducteur, $wialonDriverId);
+                }
+            }
+            // Redirigez l'utilisateur vers la page pilote_creer après avoir enregistré tous les conducteurs
+            return redirect()->route('pilote_creer');
+        } else {
+            return "Aucun conducteur trouvé pour l'ID Wialon.";
+        }
+    }
+
+    private function enregistrerConducteur($nomConducteur, $wialonDriverId)
+    {
+        // Vérifiez si le conducteur existe déjà dans la base de données
+        $conducteurExistant = Coureur::where('nom_conducteur', $nomConducteur)->first();
+
+        // Si le conducteur n'existe pas, enregistrez-le dans la base de données
+        if (!$conducteurExistant) {
+            $coureur = new Coureur();
+            $coureur->nom_conducteur = $nomConducteur;
+            $coureur->wialon_driver_id = $wialonDriverId;
+            
+
+
+            // Autres champs que vous souhaitez enregistrer
+            $coureur->save();
+        }
+    }
+
 }
 
 

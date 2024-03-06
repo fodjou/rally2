@@ -10,13 +10,13 @@ class CreateCoureurTable extends Migration
     {
         Schema::create('coureurs', function (Blueprint $table) {
             $table->id();
-            $table->string('nom_conducteur', 255)->unique();;
-            $table->string('marque', 255);
-            $table->string('matricule', 30)->unique();;
+            $table->string('nom_conducteur', 255)->unique();
+            $table->string('marque', 255)->nullable();
+            $table->string('matricule', 30)->nullable();
             $table->string('image')->nullable();
-            $table->string('sponsors', 255);
+            $table->string('sponsors', 255)->nullable();
             $table->string('logo-A')->nullable();
-            $table->string('wialon_driver_id')->nullable(); // Nouvelle colonne
+            $table->string('wialon_driver_id')->nullable();
             $table->timestamps();
         });
     }

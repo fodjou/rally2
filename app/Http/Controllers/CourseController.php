@@ -21,7 +21,7 @@ class CourseController extends Controller
         $ranking = $this->getDriversRanking($driversPositions);
 
         // Rendre la vue avec les données du classement
-        return view('pages.map', compact('ranking'));
+        return view('pages.final-result', compact('ranking'));
     }
 
     public function action(Request $request)
@@ -62,25 +62,29 @@ class CourseController extends Controller
             ]
         ]);
 
-        $data = json_decode($response->getBody()->getContents(), true);
-
         // Analyser la réponse pour récupérer les positions des conducteurs
         $items = $data['items'] ?? [];
 
         $driversPositions = [];
         if (!empty($items)) {
             foreach ($items as $driverData) {
-                $wialonDriverX = $driverData['pos']['x'];
-                $wialonDriverY = $driverData['pos']['y'];
-                $driversPositions[] = [
-                    'x' => $wialonDriverX,
-                    'y' => $wialonDriverY
-                ];
+                // Vérifier si la clé 'pos' existe et n'est pas nulle
+                if (isset($driverData['pos']) && is_array($driverData['pos'])) {
+                    $wialonDriverX = $driverData['pos']['x'] ?? null;
+                    $wialonDriverY = $driverData['pos']['y'] ?? null;
+                    if ($wialonDriverX !== null && $wialonDriverY !== null) {
+                        $driversPositions[] = [
+                            'x' => $wialonDriverX,
+                            'y' => $wialonDriverY
+                        ];
+                    }
+                }
             }
         }
 
         return $driversPositions;
     }
+
 
 
 

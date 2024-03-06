@@ -22,6 +22,15 @@ class User extends Authenticatable
         'password',
     ];
 
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+
+
     /**
      * The attributes that should be hidden for serialization.
      *

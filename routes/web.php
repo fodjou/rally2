@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CoureurController;
+use App\Http\Controllers\MapController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WialonController;
 use App\Http\Controllers\DashboardController;
@@ -45,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/coureurs/{coureur}/edit', [CoureurController::class, 'edit'])->name('coureurs.edit');
     Route::put('/coureurs/{coureur}/update', [CoureurController::class, 'update'])->name('coureurs.update');
     Route::delete('/coureurs/{coureur}', [CoureurController::class, 'destroy'])->name('coureurs.destroy');
+    Route::get('/pilote_creer' ,[CoureurController::class, 'register'])->name('pilote_creer');
 
     // Affiche le top 8
     Route::get('/Coureurs/top-final', [coursecontroller::class, 'index'])->name('coureurs.top-final');
@@ -58,10 +60,8 @@ Route::middleware(['auth'])->group(function () {
 
     // routes/web.php
 
-    Route::get('/maps', [coursecontroller::class, 'index'])->name('maps');
+    Route::get('/maps', [MapController::class, 'index'])->name('maps');
     Route::get('/course', [CourseController::class, "course.index"])->name('course.action');
-
-
 
 
 });
@@ -73,10 +73,10 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/resultat_special', function () {
     return view('resultat_special');
 });
-
-Route::get('/pilote_creer', function () {
-    return view('pilote_creer');
-});
+//
+//Route::get('/pilote_creer', function () {
+//    return view('pilote_creer');
+//});
 
 Route::get('liste_finale', function () {
     return view('liste_finale');

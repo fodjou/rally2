@@ -16,6 +16,8 @@ return new class extends Migration
             $table->string('name');
             $table->string('password');
             $table->rememberToken();
+            // Supprimer cette ligne pour désactiver la création automatique des colonnes "created_at" et "updated_at"
+            // $table->timestamps();
             $table->timestamp('last_eid_update')->nullable();
         });
     }
