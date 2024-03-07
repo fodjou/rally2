@@ -12,6 +12,20 @@
         #subtitle{
             width: 55%;
         }
+
+        #main{
+            width: fit-content;
+            height: fit-content;
+            background: transparent
+            linear-gradient(
+                178deg,
+                #548f74 0%,
+                #ffd892e0 62%,
+                #fff2dbf5 73%,
+                #ffffff 100%
+            )
+            0 0 no-repeat padding-box;
+        }
     }
 </style>
 {{--<style>--}}
