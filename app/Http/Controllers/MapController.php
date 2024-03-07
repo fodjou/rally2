@@ -19,9 +19,12 @@ class MapController extends Controller
 
         // Appel de la fonction pour récupérer les positions des conducteurs
         $driversPositions = $this->getDriversLocations($wialonDriverId);
-
+//        dd($driversPositions);
         // Calculer le classement des conducteurs à partir des positions
         $ranking = $this->getDriversRanking($driversPositions);
+
+        // Afficher la structure des données de classement des conducteurs
+//        dd($ranking);
 
         // Rendre la vue avec les données du classement
         return view('pages.map', compact('ranking'));
@@ -39,7 +42,7 @@ class MapController extends Controller
 
     public function getDriversLocations($wialonDriverId)
     {
-        $eid =  Session::get('eid');
+        $eid = Session::get('eid');
         // Initialise le client HTTP
         $client = new Client([
             'verify' => false, // Désactiver la vérification du certificat SSL
@@ -52,7 +55,7 @@ class MapController extends Controller
                     "spec" => [
                         "itemsType" => "avl_unit",
                         "propName" => "sys_id",
-                        "propValueMask" => "*".$wialonDriverId."*",
+                        "propValueMask" => "*" . $wialonDriverId . "*",
                         "sortType" => "sys_id",
                         "propType" => "property"
                     ],
@@ -66,8 +69,6 @@ class MapController extends Controller
         ]);
 
         $data = json_decode($response->getBody()->getContents(), true);
-       // dd($data); // Ajoutez cette ligne pour afficher la structure des données
-
 
         // Analyser la réponse pour récupérer les positions des conducteurs
         $items = $data['items'] ?? [];
@@ -79,10 +80,18 @@ class MapController extends Controller
                 if (isset($driverData['pos']) && is_array($driverData['pos'])) {
                     $wialonDriverX = $driverData['pos']['x'] ?? null;
                     $wialonDriverY = $driverData['pos']['y'] ?? null;
+                    $wialonDriverT = $driverData['pos']['t'] ?? null;; // Temps t
+                    $wialonDriverS = $driverData['pos']['s'] ?? null;;// Vitesse S
                     if ($wialonDriverX !== null && $wialonDriverY !== null) {
+                        // Envoyer les coordonnées x et y vers le journal des erreurs
+//                        error_log("Coordonnée x : $wialonDriverX, Coordonnée y : $wialonDriverY, Temps : $wialonDriverT, Vitesse : $wialonDriverS");
+
+                        // Ajouter les coordonnées au tableau $driversPositions
                         $driversPositions[] = [
                             'x' => $wialonDriverX,
-                            'y' => $wialonDriverY
+                            'y' => $wialonDriverY,
+                            't' => $wialonDriverT,
+                            'S' => $wialonDriverS
                         ];
                     }
                 }
@@ -95,71 +104,72 @@ class MapController extends Controller
 
 
 
+
     // systeme de ranking des joueurs
 
-    public function ranking ($wialonDriverId){
+//    public function ranking ($wialonDriverId){
+//
+//        $eid =  Session::get('eid');
+//        // Initialise le client HTTP
+//        $client = new Client([
+//            'verify' => false, // Désactiver la vérification du certificat SSL
+//        ]);
+//
+//
+//        $response = $client->request('GET', 'https://hst-api.wialon.com/wialon/ajax.html', [
+//            'query' => [
+//                'svc' => 'core/search_items',
+//                'params' => json_encode([
+//                    "spec" => [
+//                        "itemsType" => "avl_unit",
+//                        "propName" => "sys_id",
+//                        "propValueMask" => "*".$wialonDriverId."*",
+//                        "sortType" => "sys_id",
+//                        "propType" => "property"
+//                    ],
+//                    "force" => 1,
+//                    "flags" => 1281,
+//                    "from" => 0,
+//                    "to" => 0
+//                ]),
+//                'sid' => $eid
+//            ]
+//        ]);
+//
+//        $data = json_decode($response->getBody()->getContents(), true);
+//
+//        // Analyser la réponse pour récupérer l'ID du pilote correspondant
+//        $items = $data['items'] ?? [];
+//
+//        if (!empty($items)) {
+//            $driverData = $items[0];
+//            $wialonDriverX = $driverData['pos']['x'];
+//            $wialonDriverY = $driverData['pos']['y'];
+//            $wialonDriverT = $driverData['pos']['t']; // Temps t
+//            $wialonDriverS = $driverData['pos']['s'];// Vitesse S
+//
+//
+//            // Retourner un tableau avec x, y, t, S
+//            return [
+//                'x' => $wialonDriverX,
+//                'y' => $wialonDriverY,
+//                't' => $wialonDriverT,
+//                'S' => $wialonDriverS
+//            ];
+//        }
+//
+//        // Pas de position trouvée
+//        return [];
+//    }
 
-        $eid =  Session::get('eid');
-        // Initialise le client HTTP
-        $client = new Client([
-            'verify' => false, // Désactiver la vérification du certificat SSL
-        ]);
 
+        public function getDriversRanking($driversPositions)
+        {
+            $ranking = [];
 
-        $response = $client->request('GET', 'https://hst-api.wialon.com/wialon/ajax.html', [
-            'query' => [
-                'svc' => 'core/search_items',
-                'params' => json_encode([
-                    "spec" => [
-                        "itemsType" => "avl_unit",
-                        "propName" => "sys_id",
-                        "propValueMask" => "*".$wialonDriverId."*",
-                        "sortType" => "sys_id",
-                        "propType" => "property"
-                    ],
-                    "force" => 1,
-                    "flags" => 1281,
-                    "from" => 0,
-                    "to" => 0
-                ]),
-                'sid' => $eid
-            ]
-        ]);
-
-        $data = json_decode($response->getBody()->getContents(), true);
-
-        // Analyser la réponse pour récupérer l'ID du pilote correspondant
-        $items = $data['items'] ?? [];
-
-        if (!empty($items)) {
-            $driverData = $items[0];
-            $wialonDriverX = $driverData['pos']['x'];
-            $wialonDriverY = $driverData['pos']['y'];
-            $wialonDriverT = $driverData['pos']['t']; // Temps t
-            $wialonDriverS = $driverData['pos']['s'];// Vitesse S
-
-
-            // Retourner un tableau avec x, y, t, S
-            return [
-                'x' => $wialonDriverX,
-                'y' => $wialonDriverY,
-                't' => $wialonDriverT,
-                'S' => $wialonDriverS
-            ];
-        }
-
-        // Pas de position trouvée
-        return [];
-    }
-
-
-    public function getDriversRanking($driversPositions) {
-        $ranking = [];
-
-        foreach($driversPositions as $driverPosition) {
-            if (isset($driverPosition['pos']) && is_array($driverPosition['pos'])) {
-                $startTime = $driverPosition['pos']['t'] ?? 0;
-                $speed = $driverPosition['pos']['s'] ?? 0;
+            foreach ($driversPositions as $driverPosition) {
+                $startTime = $driverPosition['t'] ?? 0;
+                $speed = $driverPosition['S'] ?? 0;
 
                 // Calculer le temps écoulé depuis le départ en secondes
                 $elapsedTime = time() - $startTime;
@@ -178,22 +188,28 @@ class MapController extends Controller
                     $totalKm = $coureur->total_km + $kmTravelled;
                     $totalTime = $coureur->total_time + $elapsedTime;
 
+                    // Calculer la vitesse moyenne
+                    $averageSpeed = ($totalKm > 0 && $totalTime > 0) ? $totalKm / $totalTime : 0;
+
                     // Ajouter les détails du coureur au classement
-                    $ranking[$wialonDriverId] = [
+                    $ranking[] = [
                         'name' => $coureur->nom_conducteur,
                         'marque' => $coureur->marque,
                         'matricule' => $coureur->matricule,
                         'totalKm' => $totalKm,
-                        'totalTime' => $totalTime
+                        'totalTime' => $totalTime,
+                        'averageSpeed' => $averageSpeed
                     ];
                 }
             }
+
+            // Tri par vitesse moyenne décroissante
+            usort($ranking, function ($a, $b) {
+                return $b['averageSpeed'] - $a['averageSpeed'];
+            });
+
+            return $ranking;
         }
 
-        // Tri par vitesse moyenne décroissante
-        usort($ranking, function($a, $b) {
-            return $b['averageSpeed'] - $a['averageSpeed'];
-        });
+    }
 
-        return $ranking;
-    }}
