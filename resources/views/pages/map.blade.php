@@ -272,8 +272,6 @@
 
         </div>
 
-
-
         <table>
             <tbody>
             @php
@@ -283,18 +281,15 @@
                 <tr>
                     <td>
                         <div class="rang">{{ $rank }}</div>
-                    </td>
-                    <td>
-                        <img
-                            class="ellipse ellipse1"
-                            src="{{ asset('images/'.$coureur->image) }}"
-                        >
+                        <div class="ellipse ellipse1">
+                            <img src="{{ asset('images/'.$coureur['image']) }}" alt="visage">
+                        </div>
+                        <div class="ellipse ellipse2">
+                            <img src="{{ asset('images/'.$coureur['logo']) }}" alt="Logo">
+                        </div>
 
-                        <img
-                            class="ellipse ellipse2"
-                            src="{{ asset('images/'.$coureur->logo) }}"
-                        >
-                        <span class="name"> {{ $coureur->nom_conducteur }}</span>
+                        <span class="name"> {{ $coureur['name'] }}</span>
+
                     </td>
                 </tr>
                 @php

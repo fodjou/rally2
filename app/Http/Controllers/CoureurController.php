@@ -232,7 +232,7 @@ class CoureurController extends Controller
             $coureur = new Coureur();
             $coureur->nom_conducteur = $nomConducteur;
             $coureur->wialon_driver_id = $wialonDriverId;
-            
+
 
 
             // Autres champs que vous souhaitez enregistrer

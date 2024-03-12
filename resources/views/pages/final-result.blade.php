@@ -274,7 +274,7 @@
             <th>Véhicules</th>
             <th>Total Kilométrage</th>
             <th>Heure Total Parcours</th>
-            <th>Actions</th>
+            <th>Action</th>
             </thead>
 
 

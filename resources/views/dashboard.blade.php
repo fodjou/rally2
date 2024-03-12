@@ -103,7 +103,7 @@
 
                     <img
                         class="ellipse ellipse2"
-                        src="{{ asset('images/'.$coureur->logo) }}"
+                        src="{{ asset('images/'.$coureur->logo ) }}"
                     >
                     <td>{{ $coureur->nom_conducteur }}</td>
                     <td>{{ $coureur->sponsors }}</td>

@@ -21,6 +21,7 @@ class Coureur extends Model
         'image',
         'sponsors',
         'logo-A',
+        'wialon_driver_id',
 
 
     ];
