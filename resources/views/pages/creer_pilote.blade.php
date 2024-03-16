@@ -8,21 +8,30 @@
 
     <style>
 
-
+        #main{
+            display:flex;
+            flex-direction: column;
+        }
         #box{
             position: absolute;
             top: 50%;
-            left: 60%;
+            left: 50%;
             transform: translate(-50%, -50%);
-            width: 1050px;
-            height: 530px;
+            width: 90%; /* Utilisation de pourcentage pour s'adapter à la largeur de la page */
+            max-width: 1400px; /* Limite la largeur maximale */
+            height: auto;
+            max-height:700px;
             background: #FFFFFF 0 0 no-repeat padding-box;
             box-shadow: 0 3px 6px #00000029;
             border: 1px solid #707070;
             border-radius: 25px;
             opacity: 1;
+          
+            
 
         }
+
+        
         #subtitle{
             position: relative;
             top: -40px;
@@ -214,12 +223,14 @@
         input[type="text"],
         input[type="file"],
         input[type="submit"] {
-            width: 600px;
+            width: 100%;
+            max-width: 650px;
             padding: 20px;
             margin-bottom: 25px;
             border-radius: 20px;
             border: 1px solid #ccc;
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-sizing:border-box;
         }
         input[type="submit"] {
             background-color: #548F74;
@@ -230,18 +241,50 @@
             background-color: #40745F;
         }
         #course{
-            margin-top: -60px;
+         
+            
         }
 
         #cours{
             width: 38%;
             padding: 0;
-            position: relative;
-            z-index: 1;
+            position: absolute;
             display:inline-block;
-            top: -400px;
-            margin-left: 760px;
+            top: 150px;
+            right: 20px;
         }
+        @media screen and (max-width: 768px) {
+    #box {
+        max-width: 90%; /* Réduire la largeur maximale pour les écrans plus petits */
+    }
+
+    #subtitle {
+        flex-direction: column; /* Aligner les éléments de sous-titre en colonne pour les écrans plus petits */
+        align-items: center; /* Centrer horizontalement */
+    }
+
+
+
+    .small-box {
+        margin-left: 5px; /* Ajuster l'espacement entre les boîtes */
+    }
+
+    form {
+        margin-right: 0; /* Réinitialiser la marge à droite */
+    }
+    #slidbar {
+        display: none;
+    }
+    #course {
+        display: none; 
+    }
+
+    #cours {
+        display: none; 
+    }
+}
+
+    
 
 
     </style>
