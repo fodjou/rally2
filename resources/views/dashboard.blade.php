@@ -3,7 +3,7 @@
 @section('title', 'dahboard')
 
 <style>
-    @media screen and (min-width: 270px) and (max-width : 450px){
+    @media screen and (min-width: 270px) and (max-width : 750px){
         #box{
             width: 822px;
             height: 251px;
@@ -26,6 +26,33 @@
         )
         0 0 no-repeat padding-box;
     }
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .pagination li {
+        list-style: none;
+        margin: 0 5px;
+    }
+
+    .pagination li a,
+    .pagination li span {
+        display: inline-block;
+        padding: 8px 12px;
+        background-color: #548f74;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .pagination li a:hover {
+        background-color: #40745f;
+    }
+
+    
 
 
 
@@ -118,8 +145,9 @@
         </tbody>
     </table>
 
-    <!-- Ajoutez ici les liens de pagination fournis par Laravel -->
-    {{ $coureurs->links() }}
+    
+        {{ $coureurs->links() }}
+    
 </div>
 
 
