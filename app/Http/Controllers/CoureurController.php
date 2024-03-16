@@ -207,12 +207,29 @@ class CoureurController extends Controller
         // Vérifiez si des données ont été renvoyées avec succès
         if(isset($data['items']) && is_array($data['items'])) {
             foreach($data['items'] as $item) {
-                $nomConducteur = $item['nm'] ?? '';
-                $wialonDriverId = $item['id'] ?? '';
-                // Vérifiez si le nom du conducteur et l'ID Wialon sont présents
-                if($nomConducteur && $wialonDriverId) {
+                // Extraction du matricule, du nom du conducteur et du sponsor
+                $nomConducteurData = explode(' - ', $item['nm'] ?? '');
+                $matricule = '';
+                $nomConducteur = '';
+                $sponsor = '';
+
+                if (count($nomConducteurData) >= 2) {
+                    if (is_numeric($nomConducteurData[0])) {
+                        $matricule = trim($nomConducteurData[0]); // Le matricule est le premier élément
+                        unset($nomConducteurData[0]); // Retirez le matricule du tableau
+                        $nomConducteur = array_shift($nomConducteurData); // Le nom est le premier élément
+                    } else {
+                        $nomConducteur = array_shift($nomConducteurData); // Le nom est le premier élément
+                    }
+
+                    // Les éléments restants sont combinés pour former le sponsor
+                    $sponsors = implode(' - ', $nomConducteurData);
+                }
+
+                // Vérifiez si le nom du conducteur est présent
+                if($nomConducteur) {
                     // Enregistrez le conducteur dans la table Coureurs
-                    $this->enregistrerConducteur($nomConducteur, $wialonDriverId);
+                    $this->enregistrerConducteur($nomConducteur, $matricule, $sponsors, $item['id']);
                 }
             }
             // Redirigez l'utilisateur vers la page pilote_creer après avoir enregistré tous les conducteurs
@@ -222,7 +239,7 @@ class CoureurController extends Controller
         }
     }
 
-    private function enregistrerConducteur($nomConducteur, $wialonDriverId)
+    private function enregistrerConducteur($nomConducteur, $matricule, $sponsors, $wialonDriverId)
     {
         // Vérifiez si le conducteur existe déjà dans la base de données
         $conducteurExistant = Coureur::where('nom_conducteur', $nomConducteur)->first();
@@ -231,14 +248,15 @@ class CoureurController extends Controller
         if (!$conducteurExistant) {
             $coureur = new Coureur();
             $coureur->nom_conducteur = $nomConducteur;
+            $coureur->matricule = $matricule;
+            $coureur->sponsors = $sponsors;
             $coureur->wialon_driver_id = $wialonDriverId;
-
-
 
             // Autres champs que vous souhaitez enregistrer
             $coureur->save();
         }
     }
+
 
 }
 

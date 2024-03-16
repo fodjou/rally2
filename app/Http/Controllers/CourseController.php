@@ -19,7 +19,7 @@ class CourseController extends Controller
         foreach ($driversPositions as $driverPosition) {
             $wialonDriverId = $driverPosition['id'] ?? null;
             if ($wialonDriverId !== null) {
-                $wialonDriverIds[] = $wialonDriverId; // Ajouter l'identifiant au tableau des identifiants
+                $wialonDriverIds[] =  $wialonDriverId; // Ajouter l'identifiant au tableau des identifiants
             }
         }
 

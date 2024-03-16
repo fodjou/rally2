@@ -10,8 +10,8 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-
         </header>
+
         <div class="menu-item green-bg" onclick="location.href='{{ route('dashboard') }}'">
             <img id="dashboard" class="logo" alt="" src="{{ asset('images/dashboard.png') }}">
             <h3>Dashboard</h3>
@@ -33,12 +33,13 @@
             <img id="time" class="logo" alt="" src="{{ asset('images/compteur_vitesse.png') }}">
             <h3>real Time</h3>
         </div>
-        <div class="menu-item" onclick="location.href='{{ route('resultat_special') }}'">
-            <img id="special"class="logo" alt="" src="{{ asset('images/special_result.png') }}">
+        <div class="menu-item" onclick="location.href='{{ route('specialResult') }}'">
+            <img id="special" class="logo" alt="" src="{{ asset('images/special_result.png') }}">
             <h3> Resultat Special </h3>
         </div>
 
-        <div id="down">
+
+    <div id="down">
             <img id="5" alt="" src="{{ asset('images/logo1.png') }}">
 
         </div>

@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/Resultat-laps', [ResultatController::class, 'showLapsResult'])->name('lapsResult');
     Route::get('/resulat_lap2', [ResultatController::class, "showLaps2Result"])->name('laps2Result');
     // Affiche les specials results
-    Route::get('/Resultat-special', [ResultatController::class, 'showSpecialResult'])->name('specialResult');
+    Route::get('/Resultat_special', [ResultatController::class, 'index'])->name('specialResult');
     Route::get('/resulat_special2', [ResultatController::class, "showSpecia2Result"])->name('special2Result');
 // route du Couceur
 
@@ -70,9 +70,9 @@ Route::middleware(['auth'])->group(function () {
 
 // Route de gestion des coureurs
 
-Route::get('/resultat_special', function () {
-    return view('resultat_special');
-});
+//Route::get('/resultat_special', function () {
+//    return view('resultat_special');
+//});
 //
 //Route::get('/pilote_creer', function () {
 //    return view('pilote_creer');
@@ -81,9 +81,9 @@ Route::get('/resultat_special', function () {
 Route::get('liste_finale', function () {
     return view('liste_finale');
 });
-Route::get('/resultat_special', function () {
-    return view('resultat_special');
-})->name('resultat_special');
+//Route::get('/resultat_special', function () {
+//    return view('resultat_special');
+//})->name('resultat_special');
 
 
 Route::get('dashboard_reduce', function () {

@@ -44,7 +44,7 @@
     <div class="pilote">
         <p>Nombre de pilote</p>
     </div>
-    <h2>18</h2>
+    <h2>12</h2>
 </div>
 
 <div class="boite">

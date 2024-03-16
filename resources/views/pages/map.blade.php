@@ -268,7 +268,7 @@
 
         <div id="map">
 
-            <iframe src="https://hosting.wialon.com/locator/index.html?t=1f59b5fbd0b702d585a477e3a3d701bc29E234363E5F00DC031F565344712E0BFE5B059A&map=gurtam_maps" width="100%" height="500" frameborder="0"></iframe>
+            <iframe src="https://hosting.wialon.com/locator/index.html?t=1f59b5fbd0b702d585a477e3a3d701bc4E35BEABC0DD67A6EA7166BAC066EDCC53F2A604&map=gurtam_maps" width="100%" height="500" frameborder="0"></iframe>
 
         </div>
 

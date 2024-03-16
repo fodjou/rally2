@@ -280,12 +280,26 @@
             <th>Véhicules</th>
             <th>Total Kilométrage</th>
             <th>Heure Total Parcours</th>
-            <th></th>
             </thead>
 
-
-
+            <tbody>
+            @foreach($rankingSp1 as $index => $coureur)
+                <tr>
+                    <td>{{ $index + 1 }}</td>
+                    <td>
+                        <div class="ellipse ellipse1"></div>
+                        <div class="ellipse ellipse2"></div>
+                        <span class="name">{{ $coureur['name'] }}</span>
+                    </td>
+                    <td><img src="{{ $coureur['image'] }}" alt="Image du conducteur"></td>
+                    <td><img src="{{ $coureur['logo'] }}" alt="Logo de la marque"></td>
+                    <td style="color: #79A07D">{{ $coureur['totalKm'] }} Km</td>
+                    <td style="color: #79A07D">{{ formatTotalTime($coureur['totalTime']) }}</td>
+                </tr>
+            @endforeach
+            </tbody>
         </table>
+
     </div>
     <div class="trait"></div>
 </div>
