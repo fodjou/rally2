@@ -90,6 +90,39 @@
             height: 71px;
             border-radius: 36px;
         }
+        @media (max-width: 549px) {
+            .background-image {
+                background-size: cover;
+                height: 250%;
+                width: 150%;
+            }
+
+            .form-container {
+                position: absolute;
+                border-radius: 60px 60px 60px 60px;
+                top: 45px; /* Nouvelle position top */
+                left: 25%; /* Nouvelle position left */
+                width: 297px; /* Nouvelle largeur */
+                height: 591px; /* Nouvelle hauteur*/
+            }
+
+            input[type="text"],
+            input[type="password"] {
+                width: 280px;
+                height: 21px;
+            }
+
+            button[type="submit"] {
+                width: 280px;
+                height: 35px;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .form-container {
+                left: 15%; /* Nouvelle position left */
+            }
+        }
 
     </style>
 </head>

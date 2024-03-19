@@ -14,13 +14,91 @@ use Illuminate\Support\Facades\Session;
 class CoureurController extends Controller
 {
     //
+
+    /**
+     * @OA\Get(
+     *      path="/coureurs/{coureur}/edit",
+     *      operationId="editUser",
+     *      tags={"Coureur"},
+     *      summary="Afficher le formulaire de modification de l'utilisateur",
+     *      description="Affiche le formulaire de modification pour permettre à l'utilisateur de modifier ses informations.",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Affichage réussi du formulaire de modification de l'utilisateur."
+     *      )
+     * )
+     */
+
     public function edit()
     {
         return view('creer_pilote');
     }
+
+    /**
+     * @OA\Get(
+     *      path="/coureurs/create",
+     *      operationId="createUser",
+     *      tags={"Coureur"},
+     *      summary="Afficher le formulaire de création d'utilisateur",
+     *      description="Affiche le formulaire de création pour permettre à l'utilisateur de créer un nouvel utilisateur.",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Affichage réussi du formulaire de création d'utilisateur."
+     *      )
+     * )
+     */
+
     public function create (){
         return view ('pages.creer_pilote');
     }
+
+
+    /**
+     * @OA\Post(
+     *      path="/coureurs/create",
+     *      operationId="storeUser",
+     *      tags={"Coureur"},
+     *      summary="Enregistrer un nouveau pilote",
+     *      description="Enregistre un nouveau pilote avec ses informations, y compris le nom, la photo, les sponsors, la marque de véhicule, le logo, et l'immatriculation. Associe également le pilote à un ID dans le système Wialon.",
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Données du nouveau pilote à enregistrer",
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(
+     *                  @OA\Property(property="nom_pilote", type="string", example="John Doe"),
+     *                  @OA\Property(property="photo_pilote", type="file", format="binary"),
+     *                  @OA\Property(property="sponsor", type="string", example="Sponsor A, Sponsor B"),
+     *                  @OA\Property(property="marque_vehicule", type="string", example="Marque X"),
+     *                  @OA\Property(property="logo-A", type="file", format="binary", nullable=true),
+     *                  @OA\Property(property="immatriculation", type="string", example="ABC123"),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Le pilote a été créé avec succès.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Coureur créé avec succès")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation échouée - Vérifiez les erreurs de validation pour les détails.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="error", type="string", example="Les données fournies sont invalides.")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=500,
+     *          description="Erreur lors de l'enregistrement du pilote ou de la recherche de l'ID dans Wialon.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="error", type="string", example="Une erreur s'est produite lors de l'enregistrement du coureur. Veuillez réessayer.")
+     *          )
+     *      )
+     * )
+     */
+
 
 
     public function store(Request $request)
@@ -119,6 +197,63 @@ class CoureurController extends Controller
     }
 
 
+    /**
+     * @OA\Put(
+     *      path="/coureurs/{coureur}/update",
+     *      operationId="updateUser",
+     *      tags={"Coureur"},
+     *      summary="Mettre à jour un pilote existant",
+     *      description="Met à jour les informations d'un pilote existant, identifié par son ID.",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="ID du pilote à mettre à jour",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\RequestBody(
+     *          required=true,
+     *          description="Données du pilote à mettre à jour",
+     *          @OA\MediaType(
+     *              mediaType="multipart/form-data",
+     *              @OA\Schema(
+     *                  @OA\Property(property="nom_conducteur", type="string", example="John Doe"),
+     *                  @OA\Property(property="photo_pilote", type="file", format="binary"),
+     *                  @OA\Property(property="marque", type="string", example="Marque X"),
+     *                  @OA\Property(property="matricule", type="string", example="ABC123"),
+     *                  @OA\Property(property="sponsors", type="string", example="Sponsor A, Sponsor B"),
+     *                  @OA\Property(property="logo-A", type="file", format="binary"),
+     *              )
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Le pilote a été mis à jour avec succès.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Mise à jour du pilote réussie")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Pilote non trouvé - L'ID du pilote spécifié n'existe pas dans la base de données.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="error", type="string", example="Pilote non trouvé")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=422,
+     *          description="Validation échouée - Vérifiez les erreurs de validation pour les détails.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="error", type="string", example="Les données fournies sont invalides.")
+     *          )
+     *      )
+     * )
+     */
+
+
+
     public function update(Request $request, $id) {
 
                 // Récupérer le coureur
@@ -156,6 +291,41 @@ class CoureurController extends Controller
     }
 
 
+    /**
+     * @OA\Delete(
+     *      path="/coureurs/{coureur}",
+     *      operationId="deleteUser",
+     *      tags={"Coureur"},
+     *      summary="Supprimer un pilote",
+     *      description="Supprime un pilote existant, identifié par son ID.",
+     *      @OA\Parameter(
+     *          name="id",
+     *          in="path",
+     *          description="ID du pilote à supprimer",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Le pilote a été supprimé avec succès.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Coureur supprimé avec succès")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Pilote non trouvé - L'ID du pilote spécifié n'existe pas dans la base de données.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="error", type="string", example="Pilote non trouvé")
+     *          )
+     *      )
+     * )
+     */
+
+
+
     public function delete($id) {
         // Récupérer le coureur
     $coureur = Coureur::findOrFail($id);
@@ -173,6 +343,32 @@ class CoureurController extends Controller
 
 
     // enregistrer les conducteurs de wialon
+
+
+
+    /**
+     * @OA\Post(
+     *      path="/pilote_creer",
+     *      operationId="registerUserWialon",
+     *      tags={"Coureur"},
+     *      summary="Enregistrement des pilotes de wialon ",
+     *      description="Permet d'enregister les conducteurs depuis Wialon.",
+     *      @OA\Response(
+     *          response=200,
+     *          description="Les conducteurs ont été récupérés avec succès depuis Wialon et enregistrés dans la base de données.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="message", type="string", example="Conducteurs enregistrés avec succès.")
+     *          )
+     *      ),
+     *      @OA\Response(
+     *          response=404,
+     *          description="Aucun conducteur trouvé pour l'ID Wialon.",
+     *          @OA\JsonContent(
+     *              @OA\Property(property="error", type="string", example="Aucun conducteur trouvé pour l'ID Wialon.")
+     *          )
+     *      )
+     * )
+     */
 
 
     public function register()

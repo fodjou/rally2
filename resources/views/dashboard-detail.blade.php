@@ -6,6 +6,16 @@
     <title> Dashboard_laps</title>
 
     <style>
+
+        @media screen and (min-width: 270px) and (max-width : 750px){
+            #box{
+                width: 822px;
+                height: 251px;
+            }
+            #subtitle{
+                width: 55%;
+            }
+        }
         .ellipse {
             text-align: left;
         }
@@ -210,6 +220,30 @@
         .action#action1 {
             background-color: #585859;
         }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination li {
+            list-style: none;
+            margin: 0 5px;
+        }
+        .pagination li a,
+        .pagination li span {
+            display: inline-block;
+            padding: 8px 12px;
+            background-color: #548f74;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+        .pagination li a:hover {
+            background-color: #40745f;
+        }
+
     </style>
 </head>
 <body>
@@ -327,23 +361,12 @@
 
         </table>
 
+        {{ $coureurs->links() }}
+
     </div>
 
-    @section('styles')
-        <style>
-            .small-box {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-color: white;
-            }
 
-            .small-box img {
-                max-width: 100%;
-                max-height: 100%;
-            }
-        </style>
-    @endsection
+
 
 </div>
 </body>

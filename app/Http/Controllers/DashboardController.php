@@ -16,7 +16,7 @@ class DashboardController extends Controller
      * @show methode de details du dashboard
      */
     public function show(){
-        $coureurs = Coureur::all();
+        $coureurs = Coureur::paginate(7);
         // Transmettre les coureurs à la vue en tant que variable $coureurs
         return view('dashboard-detail', compact('coureurs'));
     }
