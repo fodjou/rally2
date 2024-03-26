@@ -180,7 +180,7 @@ class AuthController extends Controller
         }
     /**
      * @OA\Get(
-     *      path="/user/register",
+     *      path="/register",
      *      operationId="showRegistrationForm",
      *      tags={"User"},
      *      summary="Afficher le formulaire d'inscription",

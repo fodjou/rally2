@@ -278,26 +278,29 @@
                 $rank = 1;
             @endphp
             @foreach ($ranking as $coureur)
-                <tr>
-                    <td>
-                        <div class="rang">{{ $rank }}</div>
-                        <div class="ellipse ellipse1">
-                            <img src="{{ asset('images/'.$coureur['image']) }}" alt="visage">
-                        </div>
-                        <div class="ellipse ellipse2">
-                            <img src="{{ asset('images/'.$coureur['logo']) }}" alt="Logo">
-                        </div>
+                @if ($rank <= 7)
+                    <tr>
+                        <td>
+                            <div class="rang">{{ $rank }}</div>
+                            <div class="ellipse ellipse1">
+                                <img src="{{ asset('images/'.$coureur['image']) }}" alt="visage">
+                            </div>
+                            <div class="ellipse ellipse2">
+                                <img src="{{ asset('images/'.$coureur['logo']) }}" alt="Logo">
+                            </div>
 
-                        <span class="name"> {{ $coureur['name'] }}</span>
+                            <span class="name"> {{ $coureur['name'] }}</span>
 
-                    </td>
-                </tr>
+                        </td>
+                    </tr>
+                @endif
                 @php
                     $rank++;
                 @endphp
             @endforeach
             </tbody>
         </table>
+
 
     </div>
 

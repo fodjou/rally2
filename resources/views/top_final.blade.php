@@ -406,9 +406,7 @@
                 <td> LT 705454-X</td>
                 <td>105 Km</td>
                 <td>5h 45min 5s</td>
-                <td class="actions">
-                    <div class="action action2">Detail</div>
-                </td>
+                <div class="action action2">Detail</div>
             </tr>
             </tbody>
         </table>
