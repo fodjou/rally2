@@ -162,6 +162,22 @@ class CourseController extends Controller
         return $ranking;
     }
 
+    public function showCoureurDetails($id)
+    {
+        // Récupérer les détails du coureur avec l'identifiant spécifié ($id)
+        $coureur = Coureur::find($id);
+
+        // Vérifier si le coureur a été trouvé
+        if (!$coureur) {
+            // Rediriger l'utilisateur vers une page d'erreur 404 si le coureur n'est pas trouvé
+            abort(404);
+        }
+
+        // Passer les données du coureur à la vue detail_coureur
+        return view('detail_coureur', compact('coureur'));
+    }
+
+
 
 
 

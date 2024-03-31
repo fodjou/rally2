@@ -252,40 +252,40 @@
 
         <table>
             <tbody>
+            @foreach($ranking as $index => $coureur)
+                <tr>
+                    <td>Pilotes</td>
+                    <td>{{ $coureur['name'] }}</td>
+                </tr>
 
-            <tr>
-                <td>Pilotes</td>
-                <td>{{$coureur->nom_conducteur}}</td>
-            </tr>
+                <tr>
+                    <td>Sponsors</td>
+                    <td>{{ $coureur['sponsors'] }}</td> <!-- Assurez-vous que cette clé existe dans votre tableau $coureur -->
+                </tr>
 
-            <tr>
-                <td>Sponsors</td>
-                <td>{{$coureur->sponsors}}</td>
-            </tr>
+                <tr>
+                    <td>Marques</td>
+                    <td>{{ $coureur['marque'] }}</td>
+                </tr>
 
-            <tr>
-                <td>Marques</td>
-                <td>{{$coureur->marque}}</td>
-            </tr>
+                <tr>
+                    <td>Vehicules</td>
+                    <td>{{ $coureur['matricule'] }}</td>
+                </tr>
 
-            <tr>
-                <td>Vehicules</td>
-                <td>{{$coureur->matricule}}</td>
-            </tr>
+                <tr>
+                    <td>Distance Total</td>
+                    <td style="color: #79A07D">{{ $coureur['totalKm'] }} Km</td>
+                </tr>
 
-            <tr>
-                <td>Distance Total</td>
-                <td>105 Km</td>
-            </tr>
-
-            <tr>
-                <td>Heurs Total Parcours</td>
-                <td>4h 45min 5s</td>
-            </tr>
-
+                <tr>
+                    <td>Heurs Total Parcours</td>
+                    <td>{{ formatTotalTime($coureur['totalTime']) }}</td>
+                </tr>
+            @endforeach
             </tbody>
-
         </table>
+
         <div id="course">
             <img id="cours" alt="" src="{{ asset('images/Groupe 1619.png') }}">
 

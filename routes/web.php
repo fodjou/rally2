@@ -47,6 +47,9 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/coureurs/{coureur}/update', [CoureurController::class, 'update'])->name('coureurs.update');
     Route::delete('/coureurs/{coureur}', [CoureurController::class, 'destroy'])->name('coureurs.destroy');
     Route::get('/pilote_creer' ,[CoureurController::class, 'register'])->name('pilote_creer');
+    Route::get('/detail_coureur/{id}', [CourseController::class, 'showCoureurDetails'])->name('coureurs.detail_coureur');
+
+
 
     // Affiche le top 8
     Route::get('/Coureurs/top-final', [coursecontroller::class, 'index'])->name('coureurs.top-final');
@@ -90,11 +93,18 @@ Route::get('dashboard_reduce', function () {
     return view('dashboard_reduce');
 });
 
+Route::get('resultat_final', function () {
+    return view('resultat_final');
+});
+
+Route::get('course_info', function () {
+    return view('course_info');
+});
 
 
-
-
-
+Route::get('top_final', function () {
+    return view('top_final');
+});
 
 
 // route de wialon
