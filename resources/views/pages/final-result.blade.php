@@ -244,6 +244,11 @@
         bottom: 15px;
     }
 
+    .action {
+        background-color: #058147; /* Remplacez "blue" par la couleur souhaitée */
+    }
+
+
 </style>
 @endsection
 
@@ -266,47 +271,49 @@
             </div>
         </div>
 
-        <table>
-            <thead>
-            <th>Rang</th>
-            <th>Pilotes</th>
-            <th>Marques</th>
-            <th>Véhicules</th>
-            <th>Total Kilométrage</th>
-            <th>Heure Total Parcours</th>
-            <th>Action</th>
-            </thead>
+     <table>
+         <thead>
+         <tr>
+             <th>Rang</th>
+             <th>Pilotes</th>
+             <th>Marques</th>
+             <th>Véhicules</th>
+             <th>Total Kilométrage</th>
+             <th>Heure Total Parcours</th>
+             <th>Action</th>
+         </tr>
+         </thead>
+         <tbody>
+         @foreach($ranking as $index => $coureur)
+             <tr>
+                 <td>{{ $index + 1 }}</td>
+                 <td>
+                     <div class="ellipse ellipse1">
+                         <img src="{{ asset('images/'.$coureur['image']) }}" alt="visage">
+                     </div>
+                     <div class="ellipse ellipse2">
+                         <img src="{{ asset('images/'.$coureur['logo']) }}" alt="Logo">
+                     </div>
+                     <span class="name">{{ $coureur['name'] }}</span>
+                 </td>
+                 <td>{{ $coureur['marque'] }}</td>
+                 <td>{{ $coureur['matricule'] }}</td>
+                 <td style="color: #79A07D">{{ $coureur['totalKm'] }} Km</td>
+                 <td style="color: #79A07D">{{ formatTotalTime($coureur['totalTime']) }}</td>
+                 <td>
+                     <a href="{{route('/detail_coureur/{id}')}}">
+                         <div class="action"> detail</div>
+                     </a>
+                 </td>
+
+             </tr>
+         @endforeach
+         </tbody>
+     </table>
+{{--     {{ $coureurs->links() }}--}}
 
 
-            <tbody>
-            @foreach($ranking as $index => $coureur)
-                <tr>
-                    <td>{{ $index + 1 }}</td>
-                    <td>
-                        <div class="ellipse ellipse1"></div>
-                        <div class="ellipse ellipse2"></div>
-                        <span class="name">{{ $coureur['name'] }}</span>
-                    </td>
-                    <td>{{ $coureur['marque'] }}</td>
-                    <td>{{ $coureur['matricule'] }}</td>
-                    <td class="actions">
-                        @if($index === 0)
-                        <td style="color: #79A07D">{{ $coureur['totalKm'] }} Km</td>
-                        <td style="color: #79A07D">{{ formatTotalTime($coureur['totalTime']) }}</td>
-                            <div class="action action1">Winner Detail</div>
-                        @else
-                        <td >{{ $coureur['totalKm'] }} Km</td>
-                        <td >{{ formatTotalTime($coureur['totalTime']) }}</td>
-                            <div class="action action{{ $index + 1 }}">detail</div>
-                        @endif
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-
-
-        </table>
-    </div>
+ </div>
 
 
 

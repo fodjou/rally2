@@ -145,14 +145,13 @@
         }
         table {
             border-collapse: collapse;
-            position: relative;
-            top: -15px;
-            right: -10px;
             width: 400px;
             border: 1px solid #707070;
             opacity: 1;
-            border-radius: 10px;
+            top: -500px; /* Remplacez 500px par la hauteur souhaitée */
+            border-radius: 20px;
         }
+
 
         th {
             background-color: #70707029;
@@ -215,9 +214,9 @@
 
         .rang {
             position: relative;
-            left: 20%;
+            left: 10%;
             width: 50px;
-            height: 50px;
+            height: 30px;
             display: flex;
             justify-content: center;
             font: normal normal bold 40px/48px Roboto;
@@ -268,7 +267,7 @@
 
         <div id="map">
 
-            <iframe src="https://hosting.wialon.com/locator/index.html?t=1f59b5fbd0b702d585a477e3a3d701bc4E35BEABC0DD67A6EA7166BAC066EDCC53F2A604&map=gurtam_maps" width="100%" height="500" frameborder="0"></iframe>
+            <iframe src="https://hosting.wialon.com/locator/index.html?t=1f59b5fbd0b702d585a477e3a3d701bcDF92DAA8FB8372491B203513F80FB095C649571E&map=gurtam_maps" width="100%" height="500" frameborder="0"></iframe>
 
         </div>
 
@@ -278,7 +277,7 @@
                 $rank = 1;
             @endphp
             @foreach ($ranking as $coureur)
-                @if ($rank <= 7)
+                @if ($rank <= 5)
                     <tr>
                         <td>
                             <div class="rang">{{ $rank }}</div>
