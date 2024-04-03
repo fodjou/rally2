@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coureur;
-use Illuminate\Http\Request;
 use GuzzleHttp\Client;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 
-class CourseController extends Controller
+class detailController
 {
     public function index()
     {
@@ -19,7 +19,7 @@ class CourseController extends Controller
         foreach ($driversPositions as $driverPosition) {
             $wialonDriverId = $driverPosition['id'] ?? null;
             if ($wialonDriverId !== null) {
-                $wialonDriverIds[] =  $wialonDriverId; // Ajouter l'identifiant au tableau des identifiants
+                $wialonDriverIds[] = $wialonDriverId; // Ajouter l'identifiant au tableau des identifiants
             }
         }
 
@@ -32,7 +32,7 @@ class CourseController extends Controller
 
 
         // Rendre la vue avec les données du classement
-        return view('pages.final-result', compact('ranking'));
+        return view('detail_coureur', compact('ranking'));
     }
 
 
@@ -41,14 +41,15 @@ class CourseController extends Controller
         // Mettre à jour la variable de session
         session()->put('selectedAction', $request->input('action'));
 
-        return redirect()->back();
+        // Rediriger avec un message de succès
+        return redirect()->back()->with('message', 'Action effectuée avec succès.');
     }
 
     // recuperer les coordonnees des joueurs en temps reel pour la map
 
     public function getDriversLocations()
     {
-        $eid =  Session::get('eid');
+        $eid = Session::get('eid');
         // Initialise le client HTTP
         $client = new Client([
             'verify' => false, // Désactiver la vérification du certificat SSL
@@ -99,7 +100,7 @@ class CourseController extends Controller
                             'y' => $wialonDriverY,
                             't' => $wialonDriverT,
                             'S' => $wialonDriverS,
-                            'id'=> $wialonDriverId
+                            'id' => $wialonDriverId
                         ];
                     }
                 }
@@ -109,11 +110,12 @@ class CourseController extends Controller
         return $driversPositions;
     }
 
-    public function getDriversRanking($driversPositions) {
+    public function getDriversRanking($driversPositions)
+    {
 //        dd($driversPositions);
         $ranking = [];
 
-        foreach($driversPositions as $driverPosition) {
+        foreach ($driversPositions as $driverPosition) {
             if (isset($driverPosition) && is_array($driverPosition)) {
                 $startTime = $driverPosition['t'] ?? 0;
                 $speed = $driverPosition['s'] ?? 0;
@@ -141,14 +143,13 @@ class CourseController extends Controller
                     // Ajouter les détails du coureur au classement
                     $ranking[] = [
                         'name' => $coureur->nom_conducteur,
-                        'marque'=> $coureur->marque,
-                        'matricule'=> $coureur->matricule,
-                        'image'=> $coureur->image,
-                        'logo'=> $coureur->logo,
+                        'marque' => $coureur->marque,
+                        'matricule' => $coureur->matricule,
+                        'image' => $coureur->image,
+                        'logo' => $coureur->logo,
                         'totalKm' => $totalKm,
                         'totalTime' => $totalTime,
                         'averageSpeed' => $averageSpeed
-
 
                     ];
                 }
@@ -156,58 +157,27 @@ class CourseController extends Controller
         }
 
         // Tri par vitesse moyenne décroissante
-        usort($ranking, function($a, $b) {
+        usort($ranking, function ($a, $b) {
             return $b['averageSpeed'] - $a['averageSpeed'];
         });
 
         return $ranking;
     }
 
-//    public function showCoureurDetails($id)
-//    {
-//        // Récupérer les détails du coureur avec l'identifiant spécifié ($id)
-//        $coureur = Coureur::find($id);
-//
-//        // Vérifier si le coureur a été trouvé
-//        if (!$coureur) {
-//            // Rediriger l'utilisateur vers une page d'erreur 404 si le coureur n'est pas trouvé
-//            abort(404);
-//        }
-//
-//        // Passer les données du coureur à la vue detail_coureur
-//        return view('detail_coureur', compact('coureur'));
-//    }
+    public function showCoureurDetails($id)
+    {
+        // Récupérer les détails du coureur avec l'identifiant spécifié ($id)
+        $coureur = Coureur::find($id);
 
+        // Vérifier si le coureur a été trouvé
+        if (!$coureur) {
+            // Rediriger l'utilisateur vers une page d'erreur 404 si le coureur n'est pas trouvé
+            abort(404);
+        }
 
-
-
-
-
-
-
-
-
-// Le but est de savoir qui est le plus rapide
-
-
-    // reupere les distances parcouruent de chacun
-        // calculer la distance entre
-
-
-
-
-
-    // fin de la course recuperer l'heure d'arrivee
-    public function getEndTime() {
-
+        // Passer les données du coureur à la vue detail_coureur
+        return view('detail_coureur', compact('coureur'));
     }
 
 
 }
-
-
-
-
-
-
-

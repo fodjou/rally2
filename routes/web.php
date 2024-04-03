@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CoureurController;
+use App\Http\Controllers\detailController;
 use App\Http\Controllers\MapController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WialonController;
@@ -47,7 +48,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/coureurs/{coureur}/update', [CoureurController::class, 'update'])->name('coureurs.update');
     Route::delete('/coureurs/{coureur}', [CoureurController::class, 'destroy'])->name('coureurs.destroy');
     Route::get('/pilote_creer' ,[CoureurController::class, 'register'])->name('pilote_creer');
-    Route::get('/detail_coureur/{id}', [CourseController::class, 'showCoureurDetails'])->name('coureurs.detail_coureur');
+    Route::get('/detail_coureur/{id}', [detailController::class, 'index'])->name('coureurs.detail_coureur');
 
 
 

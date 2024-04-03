@@ -2,6 +2,13 @@
 
 @section('title', 'dahboard')
 
+@if(session('message'))
+    <div class="alert alert-success">
+        {{ session('message') }}
+    </div>
+@endif
+
+
 <style>
     @media screen and (min-width: 270px) and (max-width : 750px){
         #box{
@@ -12,6 +19,7 @@
             width: 55%;
         }
     }
+
 
     #main{
         width: fit-content;
@@ -52,7 +60,7 @@
         background-color: #40745f;
     }
 
-    
+
 
 
 
@@ -145,9 +153,9 @@
         </tbody>
     </table>
 
-    
+
         {{ $coureurs->links() }}
-    
+
 </div>
 
 

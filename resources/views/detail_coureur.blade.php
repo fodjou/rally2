@@ -253,6 +253,7 @@
         <table>
             <tbody>
             @foreach($ranking as $index => $coureur)
+{{--                @if($coureur['id'] == $wialonDriverId) <!-- Ajoutez cette condition pour filtrer les détails par identifiant -->--}}
                 <tr>
                     <td>Pilotes</td>
                     <td>{{ $coureur['name'] }}</td>
@@ -260,7 +261,7 @@
 
                 <tr>
                     <td>Sponsors</td>
-                    <td>{{ $coureur['sponsors'] }}</td> <!-- Assurez-vous que cette clé existe dans votre tableau $coureur -->
+                    <td>{{ $coureur['sponsors'] ?? 'N/A' }}</td> <!-- Utilisation de ?? pour gérer les cas où la clé n'existe pas -->
                 </tr>
 
                 <tr>
@@ -279,12 +280,14 @@
                 </tr>
 
                 <tr>
-                    <td>Heurs Total Parcours</td>
+                    <td>Heures Total Parcourues</td>
                     <td>{{ formatTotalTime($coureur['totalTime']) }}</td>
                 </tr>
+{{--                @endif--}}
             @endforeach
             </tbody>
         </table>
+
 
         <div id="course">
             <img id="cours" alt="" src="{{ asset('images/Groupe 1619.png') }}">
@@ -294,7 +297,6 @@
     </div>
 
 </div>
-
 
 </body>
 </html>
