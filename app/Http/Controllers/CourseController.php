@@ -6,6 +6,7 @@ use App\Models\Coureur;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Session;
+use PhpParser\Node\Expr\List_;
 
 class CourseController extends Controller
 {
@@ -25,7 +26,6 @@ class CourseController extends Controller
 
         // Afficher tous les identifiants des conducteurs
 //        dd($wialonDriverIds);
-
         // Calculer le classement des conducteurs à partir des positions
         $ranking = $this->getDriversRanking($driversPositions);
         //        dd($ranking);

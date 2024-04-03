@@ -152,8 +152,6 @@
             @endforeach
         </tbody>
     </table>
-
-
         {{ $coureurs->links() }}
 
 </div>

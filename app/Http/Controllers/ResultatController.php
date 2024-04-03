@@ -58,6 +58,7 @@ class ResultatController extends Controller
             'verify' => false, // Désactiver la vérification du certificat SSL
         ]);
 
+
         $response = $client->request('GET', 'https://hst-api.wialon.com/wialon/ajax.html', [
             'query' => [
                 'svc' => 'core/search_items',

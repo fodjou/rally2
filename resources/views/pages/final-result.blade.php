@@ -284,29 +284,31 @@
          </tr>
          </thead>
          <tbody>
+         @php
+             $rank = 1;
+         @endphp
          @foreach($ranking as $index => $coureur)
-             <tr>
-                 <td>{{ $index + 1 }}</td>
-                 <td>
-                     <div class="ellipse ellipse1">
-                         <img src="{{ asset('images/'.$coureur['image']) }}" alt="visage">
-                     </div>
-                     <div class="ellipse ellipse2">
-                         <img src="{{ asset('images/'.$coureur['logo']) }}" alt="Logo">
-                     </div>
-                     <span class="name">{{ $coureur['name'] }}</span>
-                 </td>
-                 <td>{{ $coureur['marque'] }}</td>
-                 <td>{{ $coureur['matricule'] }}</td>
-                 <td style="color: #79A07D">{{ $coureur['totalKm'] }} Km</td>
-                 <td style="color: #79A07D">{{ formatTotalTime($coureur['totalTime']) }}</td>
-                 <td>
-                     <a href="{{route('/detail_coureur/{id}')}}">
-                         <div class="action"> detail</div>
-                     </a>
-                 </td>
+             @if ($rank <= 5)
+                 <tr>
+                     <td>{{ $index + 1 }}</td>
+                     <td>
+                         <img src="{{ asset('images/'.$coureur['image']) }}" alt="visage" class="ellipse ellipse1">
+                         <img src="{{ asset('images/'.$coureur['logo']) }}" alt="Logo" class="ellipse ellipse1">
+                         <span class="name">{{ $coureur['name'] }}</span>
+                     </td>
+                     <td>{{ $coureur['marque'] }}</td>
+                     <td>{{ $coureur['matricule'] }}</td>
+                     <td style="color: #79A07D">{{ $coureur['totalKm'] }} Km</td>
+                     <td style="color: #79A07D">{{ formatTotalTime($coureur['totalTime']) }}</td>
+                     <td>
+                             <div class="action"> detail</div>
+                     </td>
 
-             </tr>
+                 </tr>
+             @endif
+             @php
+                 $rank++;
+             @endphp
          @endforeach
          </tbody>
      </table>
